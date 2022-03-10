@@ -21,6 +21,7 @@ job:
         with:
           linters: flake8
           run: flake8 csec_project_catalog
+  
   isort:
     name: isort 
     runs-on: ubuntu-latest
@@ -45,3 +46,4 @@ job:
         uses: actions/checkout@v3
       - name: black
         uses: psf/black@stable
+
