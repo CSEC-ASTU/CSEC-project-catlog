@@ -5,7 +5,7 @@ on:
       - 'main'
   pull_request:
 
-job:
+jobs:
   flake8:
     name: flake8
     runs-on: ubuntu-latest
