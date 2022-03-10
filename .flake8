@@ -1,0 +1,6 @@
+[flake8]
+exclude=
+    csec_project_catalog/csec_project_catalog/asgi.py,
+    csec_project_catalog/csec_project_catalog/wsgi.py,
+    csec_project_catalog/csec_project_catalog/settings.py,
+    csec_project_catalog/manage.py
