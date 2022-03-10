@@ -1,3 +1,7 @@
+"""
+This file contains Database table definition in python
+class with Django ORM installed.
+"""
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
@@ -20,7 +24,7 @@ class Link(models.Model):
     )
 
     def __str__(self):
-        return self.url
+        return f"{self.url}"
 
 
 class User(AbstractUser):
