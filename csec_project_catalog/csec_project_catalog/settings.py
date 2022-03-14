@@ -26,11 +26,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # My Apps
     "authentication",
     "project_catalog",
-
     # 3rd Party Apps
     "phonenumber_field",
 ]
@@ -70,10 +68,7 @@ WSGI_APPLICATION = "csec_project_catalog.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # Loading Database Settings from .env file
-DB_CONFIG = {
-    "ENGINE": os.getenv("ENGINE"),
-    "NAME": os.getenv("NAME")
-}
+DB_CONFIG = {"ENGINE": os.getenv("ENGINE"), "NAME": os.getenv("NAME")}
 
 if "ENGINE" not in DB_CONFIG["ENGINE"]:
     DB_CONFIG["USER"] = os.getenv("USER")
@@ -81,9 +76,7 @@ if "ENGINE" not in DB_CONFIG["ENGINE"]:
     DB_CONFIG["HOST"] = os.getenv("HOST")
     DB_CONFIG["PORT"] = os.getenv("PORT")
 
-DATABASES = {
-    "default": DB_CONFIG
-}
+DATABASES = {"default": DB_CONFIG}
 
 
 # Password validation
@@ -128,4 +121,4 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Setting Default user model
-AUTH_USER_MODEL="authentication.User"
+AUTH_USER_MODEL = "authentication.User"
