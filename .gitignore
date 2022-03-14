@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 plan.md
+csec_project_catalog/.env
