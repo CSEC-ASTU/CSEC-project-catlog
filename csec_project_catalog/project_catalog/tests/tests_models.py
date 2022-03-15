@@ -7,8 +7,8 @@ from django.test import TestCase
 from project_catalog.models import Rating, Image, Project
 from authentication.models import User
 
-class ModelTestCases(TestCase):
 
+class ModelTestCases(TestCase):
     def setUp(self):
         self.user = User.objects.create(
             username="testuser",
@@ -31,4 +31,3 @@ class ModelTestCases(TestCase):
         self.assertEqual(rating.created_by, self.user)
         self.assertTrue(rating.created_at != None)
         self.assertTrue(rating.is_deleted == False)
-    

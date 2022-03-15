@@ -8,8 +8,8 @@ from django.test import TestCase
 from project_catalog.models import Rating
 from authentication.models import User
 
-class ModelTestCases(TestCase):
 
+class ModelTestCases(TestCase):
     def setUp(self):
         self.user = User.objects.create(
             username="testuser",
