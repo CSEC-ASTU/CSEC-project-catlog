@@ -14,7 +14,7 @@ class Rating(models.Model):
     """
 
     id = models.AutoField(primary_key=True)
-    emoji = models.TextField(max_length=2048, blank=True)
+    emoji = models.TextField(max_length=2048, blank=False, null=False)
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
