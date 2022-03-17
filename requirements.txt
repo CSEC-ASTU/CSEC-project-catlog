@@ -1,0 +1,5 @@
+Django==4.0.3
+django-phonenumber-field==6.1.0
+django-phonenumber-field[phonenumbers]
+pillow
+python-dotenv==0.19.2
