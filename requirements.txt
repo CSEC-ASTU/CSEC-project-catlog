@@ -3,3 +3,5 @@ django-phonenumber-field==6.1.0
 django-phonenumber-field[phonenumbers]
 python-dotenv==0.19.2
 coverage-6.3.2
+pillow
+python-dotenv==0.19.2
