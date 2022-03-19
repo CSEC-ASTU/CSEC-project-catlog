@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 
 
-class ProjectCatalogConfig(AppConfig):
-    default_auto_field = "django.db.models.BigAutoField"
-    name = "project_catalog"
+class ProjectCatalogAppConfig(AppConfig):
+    name = 'project_catalog_app'
