@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+</head>
+<body>
+	<nav class="navbar" id="Navbar">
+			<i class="fa fa-hand-holding-heart fa-3x "></i>CSEC Project Catalog
+		</a>
+
+		<a href="javascript:void(0);" class="icon" onclick="navbarToggler()">
+			<i class="fa fa-bars"></i>
+		</a>
+		
+
+		{% if request.user.is_authenticated %}
+			<span class="float-r" >
+					{{ request.user }}
+					
+				</a>
+				<a class="" name="logout" href="{% url 'logout' %}">
+					<i class="fa fa-sign-out-alt"></i>
+					Log out
+				</a>
+			</span>
+				
+			 
+		{% else %}
+			<a href="#signModal" class="login">
+				<a href="{% url 'login' %}">Login</a> 
+				<i class="fa fa-user"></i>
+			</a>
+		{% endif %}
+		
+
+	</nav>
+	
+	<div class="contianer ">
+		<div class="main">
+			<div class="row d-flex-w ">
+ 				<div class="col-2 large">
+ 					
+ 				</div>
+				<div class="col-8 d-flex justify-sa">
+					<div class="col-3 large">
+						{% block left_side_content %}
+					
+						{% endblock %}
+					</div>
+					
+					{% block content %}
+						
+					{% endblock %}
+					{% block form_content %}
+						
+					{% endblock %}
+					
+					<div class="col-3 large">
+						{% block right_side_content %}
+						
+						{% endblock %}
+						
+					</div>
+				</div>
+				<div class="col-2 large">
+ 					
+ 				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+		{% block jambotrons %}
+		{% endblock %}
+	<footer class="footer m-b-3">
+
+		<div class="copyright align-c">
+			 © <script>document.write(new Date().getFullYear());</script> All rights reserved 
+		</div>
+	</footer>
+
+
+	<script>
+
+		
+
+		$(document).ready(function()
+		{
+			{% block domready %}
+			{% endblock %}
+		});
+	</script>
+
+</body>
+</html>

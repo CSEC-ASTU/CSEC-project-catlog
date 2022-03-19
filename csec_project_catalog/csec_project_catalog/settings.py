@@ -13,7 +13,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
-
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_HOSTS = []
 
 
@@ -97,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -122,3 +122,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Setting Default user model
 AUTH_USER_MODEL = "authentication.User"
+
+LOGIN_REDIRECT_URL = 'profile'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
