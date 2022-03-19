@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Project
-from .forms import EmployeeForm
+from .forms import ProjectForm
 from django.db.models import Q
 
 
-def employees_list(request):
+def project_list(request):
 
     search_query = ""
 
@@ -22,14 +22,14 @@ def employees_list(request):
     return render(request, 'list.html', context)
 
 
-def create_employee(request):
-    form = EmployeeForm()
+def create_project(request):
+    form = ProjectForm()
 
     if request.method == 'POST':
-        form = EmployeeForm(request.POST, request.FILES)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('employees-list')
+            return redirect('project-list')
 
     context = {
         'form': form,
@@ -37,15 +37,15 @@ def create_employee(request):
     return render(request, 'create.html', context)
 
 
-def edit_employee(request, pk):
+def edit_project(request, pk):
     project = Project.objects.get(id=pk)
-    form = EmployeeForm(instance=project)
+    form = ProjectForm(instance=project)
 
     if request.method == 'POST':
-        form = EmployeeForm(request.POST, request.FILES, instance=project)
+        form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('employees-list')
+            return redirect('project-list')
 
     context = {
         'project': project,
@@ -54,12 +54,12 @@ def edit_employee(request, pk):
     return render(request, 'edit.html', context)
 
 
-def delete_employee(request, pk):
+def delete_project(request, pk):
     project = Project.objects.get(id=pk)
 
     if request.method == 'POST':
         project.delete()
-        return redirect('employees-list')
+        return redirect('project-list')
 
     context = {
         'project': project,
