@@ -1,17 +1,42 @@
-
+from django.contrib.auth.password_validation import validate_password
+from django.core import validators
 from django import forms
 from .models import User
+import re
+
+# regular expression for validating an Email
+regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+ 
+# function for validating an Email
+def validate_email(email):
+	"""
+		pass the regular expression
+		and the string into the fullmatch() method 
+		and chackes whether it is valid email or not  
+		then rises validationError if it not valid
+
+	"""
+	if not re.fullmatch(regex, email):
+		raise forms.ValidationError('Invalid email format')
 
 
+# user Registration form
 class UserRegistrationForm(forms.ModelForm):
-	password = forms.CharField(label='Password',  widget=forms.PasswordInput) 
+	email = forms.EmailField(validators=[validate_email])
+	password = forms.CharField(label='Password',  widget=forms.PasswordInput, validators = [validate_password]) 
 	password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+
 	class Meta:
 		model = User
-		# fields = '__all__'
 		fields = ('first_name','last_name','username', 'phone_number', 'email')
-	def clean_password2(self):
-		cd = self.cleaned_data
-		if cd['password'] != cd['password2']:
-			raise forms.ValidationError('Passwords don\'t match.')
-		return cd['password2']
+	def clean(self):
+		cleaned_data = super(UserRegistrationForm, self).clean()
+		password = cleaned_data.get("password")
+		password2 = cleaned_data.get("password2")
+		if password != password2:
+			self.add_error('password2', "Passwords does not match")
+
+
+
+
+

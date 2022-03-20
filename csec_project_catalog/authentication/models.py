@@ -34,7 +34,7 @@ class User(AbstractUser):
     Returns:
         User Object
     """
-
+    email = models.EmailField(unique=True)
     phone_number = PhoneNumberField()
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
