@@ -97,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -123,6 +123,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Setting Default user model
 AUTH_USER_MODEL = "authentication.User"
 
-LOGIN_REDIRECT_URL = 'profile'
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = "profile"
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
