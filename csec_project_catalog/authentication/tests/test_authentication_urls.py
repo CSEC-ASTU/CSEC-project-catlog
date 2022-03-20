@@ -52,3 +52,9 @@ class LoginTest(SimpleTestCase):
         self.assertEqual(response.status_code, 302)
 
 
+
+        
+        
+        
+        
+        

@@ -4,9 +4,6 @@ from django import forms
 from .models import User
 import re
 
-# regular expression for validating an Email
-regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
- 
 # function for validating an Email
 def validate_email(email):
 	"""
@@ -16,6 +13,9 @@ def validate_email(email):
 		then rises validationError if it not valid
 
 	"""
+	# regular expression for validating an Email
+	regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+ 
 	if not re.fullmatch(regex, email):
 		raise forms.ValidationError('Invalid email format')
 
@@ -38,5 +38,4 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 
-
-
+			
