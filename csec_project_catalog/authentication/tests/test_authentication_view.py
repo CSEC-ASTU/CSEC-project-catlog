@@ -112,3 +112,9 @@ class LoginTest(BaseTest):
     def test_can_not_login_with_no_password(self):
         response= self.client.post(self.login_url,{'username':'passwped','password':''},format='text/html')
         self.assertEqual(response.status_code,200)
+	
+	
+	
+	
+	
+	
