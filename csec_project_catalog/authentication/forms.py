@@ -1,8 +1,11 @@
+import re
+
+from django import forms
 from django.contrib.auth.password_validation import validate_password
 from django.core import validators
-from django import forms
+
 from .models import User
-import re
+
 
 # function for validating an Email
 def validate_email(email):
