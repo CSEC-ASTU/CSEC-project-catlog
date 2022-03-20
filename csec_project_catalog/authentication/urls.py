@@ -1,4 +1,7 @@
+"""
+csec_project_catalog_authentication urls
 
+"""
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
@@ -9,10 +12,10 @@ urlpatterns = [
     # Registartion
      path('register/',views.registeration, name='register'),
 
+
     # Profile Page / Dashboard
      path('profile/',views.profile, name='profile'),
 
-    # path('', include('django.contrib.auth.urls')),
 
     # Login / Log Out
      path('login/', auth_views.LoginView.as_view(
@@ -21,13 +24,13 @@ urlpatterns = [
         ),
         name='login'
     ),
-
     path('logout/', auth_views.LogoutView.as_view(
           next_page='login'
         ),
         name='logout'
     ),
 
+   
     # Change Password
     path(
         'change-password/',
@@ -35,17 +38,17 @@ urlpatterns = [
             template_name='registration/change_password.html',
             success_url='/auth/change-password/done'
         ),
-        name='change-password'
+        name='change_password'
     ),
-
     path(
         'change-password/done',
         auth_views.PasswordChangeDoneView.as_view(
             template_name='registration/change_password_done.html',
         ),
-        name='change-password-done'
+        name='change_password_done'
     ),
 
+    
     # Forget Password
     path('password-reset/',
          auth_views.PasswordResetView.as_view(
@@ -72,3 +75,8 @@ urlpatterns = [
          name='password_reset_complete'),
 
 ]
+
+
+
+
+

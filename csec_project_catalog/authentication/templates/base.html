@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,19 +9,14 @@
 </head>
 <body>
 	<nav class="navbar" id="Navbar">
-			<i class="fa fa-hand-holding-heart fa-3x "></i>CSEC Project Catalog
-		</a>
-
+			<i class="fa fa-hand-holding-heart fa-3x "></i>
+      		CSEC Project Catalog
 		<a href="javascript:void(0);" class="icon" onclick="navbarToggler()">
 			<i class="fa fa-bars"></i>
 		</a>
-		
-
 		{% if request.user.is_authenticated %}
 			<span class="float-r" >
 					{{ request.user }}
-					
-				</a>
 				<a class="" name="logout" href="{% url 'logout' %}">
 					<i class="fa fa-sign-out-alt"></i>
 					Log out
@@ -36,8 +30,6 @@
 				<i class="fa fa-user"></i>
 			</a>
 		{% endif %}
-		
-
 	</nav>
 	
 	<div class="contianer ">
@@ -86,8 +78,6 @@
 
 
 	<script>
-
-		
 
 		$(document).ready(function()
 		{
