@@ -37,3 +37,6 @@ class UserRegistrationForm(forms.ModelForm):
 			self.add_error('password2', "Passwords does not match")
 
 
+
+			
+			
