@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block form_content %}
+	<div class="card col-6">
+		<div class="form ">
+			<h1 class="form-h">Hi {{user.username }} welcome to your dashboard</h1>
+			<h2>{{user.first_name }}</h2>
+			<h2>{{user.last_name }}</h2>
+			<h2>{{user.phone_number }}</h2>
+			<p class="c-br">edit your account </p>
+			
+			
+			<a class="" name="logout" href="{% url 'logout' %}">
+				<i class="fa fa-sign-out-alt"></i>Log out
+			</a>
+		</div>
+		
+	</div>
+	
+{% endblock %}
