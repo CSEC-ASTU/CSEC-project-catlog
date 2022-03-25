@@ -79,8 +79,9 @@ jobs:
         run: pip install -r requirements.txt
       
       - name: Testing Django
-        run: cd csec_project_catalog
-        run: python manage.py test
+        run: |
+          cd csec_project_catalog
+          python manage.py test
         
         env:
           ENGINE: "django.db.backends.postgresql"
