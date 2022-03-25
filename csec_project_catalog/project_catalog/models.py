@@ -5,7 +5,7 @@ from django.contrib.auth.models import UserManager,BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-from account.models import User
+from authentication.models import User
 
 class Rating(models.Model):
     id = models.AutoField(primary_key=True)
