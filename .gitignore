@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 plan.md
 csec_project_catalog/.env
+.vscode/settings.json
