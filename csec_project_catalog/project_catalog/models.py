@@ -3,10 +3,9 @@ This models file contains all the models used for project_catalog apps.
 """
 import uuid
 
+from authentication.models import User
 from django.conf import settings
 from django.db import models
-
-from authentication.models import User
 
 
 # pylint: disable=too-few-public-methods

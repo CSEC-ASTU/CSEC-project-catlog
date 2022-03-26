@@ -3,7 +3,6 @@
 # pylint: disable=invalid-name
 
 from django.test import TestCase
-
 from project_catalog.models import Image, Project, Rating, User
 
 
