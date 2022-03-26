@@ -81,6 +81,8 @@ jobs:
       - name: Testing Django
         run: |
           cd csec_project_catalog
+          python manage.py makemigrations
+          python manage.py migrate
           python manage.py test
         
         env:
