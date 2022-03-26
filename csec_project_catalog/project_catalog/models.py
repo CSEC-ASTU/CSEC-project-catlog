@@ -8,7 +8,6 @@ from django.conf import settings
 from django.db import models
 
 
-
 # pylint: disable=too-few-public-methods
 class Rating(models.Model):
     """
