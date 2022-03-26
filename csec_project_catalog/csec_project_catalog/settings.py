@@ -70,7 +70,7 @@ WSGI_APPLICATION = "csec_project_catalog.wsgi.application"
 # Loading Database Settings from .env file
 DB_CONFIG = {"ENGINE": os.getenv("ENGINE"), "NAME": os.getenv("NAME")}
 
-if "ENGINE" not in DB_CONFIG["ENGINE"]:
+if DB_CONFIG["ENGINE"] and "sqlite3" not in DB_CONFIG["ENGINE"]:
     DB_CONFIG["USER"] = os.getenv("USER")
     DB_CONFIG["PASSWORD"] = os.getenv("PASSWORD")
     DB_CONFIG["HOST"] = os.getenv("HOST")

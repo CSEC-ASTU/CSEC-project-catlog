@@ -52,7 +52,7 @@ jobs:
     
     services:
       postgres:
-        image: postgres
+        image: postgres:latest
         env:
           POSTGRES_DB: "csec_project_catalog"
           POSTGRES_USER: "csec_project_catalog"
@@ -64,7 +64,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 5432:5432
+          - "5432:5432"
     
     steps:
       - name: Checkout
@@ -79,14 +79,18 @@ jobs:
         run: pip install -r requirements.txt
       
       - name: Testing Django
-        run: cd csec_project_catalog
-        run: python manage.py test
+        run: |
+          cd csec_project_catalog
+          python manage.py makemigrations
+          python manage.py migrate
+          python manage.py test
         
         env:
           ENGINE: "django.db.backends.postgresql"
           NAME: "csec_project_catalog"
           USER: "csec_project_catalog"
           PASSWORD: ${{ secrets.DB_PASSWORD }}
-          HOST: 5432
+          HOST: "localhost"
+          POST: 5432
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: "False"

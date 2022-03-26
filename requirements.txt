@@ -1,7 +1,7 @@
-Django==4.0.3
+coverage==6.3.2
+django==4.0.3
 django-phonenumber-field==6.1.0
 django-phonenumber-field[phonenumbers]
 python-dotenv==0.19.2
-coverage-6.3.2
-pillow
-python-dotenv==0.19.2
+pillow==9.0.1
+psycopg2==2.9.3
