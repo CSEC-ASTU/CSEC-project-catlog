@@ -2,9 +2,10 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=invalid-name
 import email
+
 from django.test import TestCase
 
-from project_catalog.models import Rating, Image, Project, User
+from project_catalog.models import Image, Project, Rating, User
 
 
 class ModelTestCases(TestCase):

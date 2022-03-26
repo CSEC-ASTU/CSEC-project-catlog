@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
-from .models import Project
-from .forms import ProjectForm
 from django.db.models import Q
+from django.shortcuts import redirect, render
+
+from .forms import ProjectForm
+from .models import Project
 
 
 def project_list(request):
