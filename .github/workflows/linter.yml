@@ -88,6 +88,7 @@ jobs:
           NAME: "csec_project_catalog"
           USER: "csec_project_catalog"
           PASSWORD: ${{ secrets.DB_PASSWORD }}
-          HOST: 5432
+          HOST: "localhost"
+          POST: 5432
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: "False"
