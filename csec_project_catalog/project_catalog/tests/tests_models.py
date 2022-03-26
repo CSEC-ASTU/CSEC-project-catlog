@@ -1,10 +1,8 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
 # pylint: disable=invalid-name
-import email
 
 from django.test import TestCase
-
 from project_catalog.models import Image, Project, Rating, User
 
 
@@ -70,9 +68,9 @@ class ModelTestCases(TestCase):
         self.assertEqual(
             project.github_link, "https://github.com/CSEC-ASTU/CSEC-project-catlog"
         )
-        self.assertTrue(project.project_link != None)
+        self.assertTrue(project.project_link is not None)
         self.assertEqual(project.created_by, self.user)
         self.assertTrue(project.created_at, 28 / 11 / 2018)
-        self.assertTrue(project.is_deleted == False)
+        self.assertTrue(project.is_deleted is False)
         self.assertEqual(project.deleted_by, self.user)
-        self.assertTrue(project.updated_at != None)
+        self.assertTrue(project.updated_at is not None)
