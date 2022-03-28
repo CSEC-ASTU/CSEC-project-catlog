@@ -1,10 +1,13 @@
 from re import template
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
+from django.views.generic import DetailView, ListView, UpdateView
+
 from .forms import UserRegistrationForm
 from .models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, ListView, UpdateView
+
 
 def registeration(request):
     if request.method == "POST":
@@ -32,11 +35,23 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         return self.request.user
+
+
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = User
-    fields = ['first_name', 'last_name', 'email', 'phone_number', 'website', 'linkedin', 'github', 'facebook', 'instagram']
-    template_name = 'authentication/profile_edit.html'
-    success_url = '/auth/profile/'
+    fields = [
+        "first_name",
+        "last_name",
+        "email",
+        "phone_number",
+        "website",
+        "linkedin",
+        "github",
+        "facebook",
+        "instagram",
+    ]
+    template_name = "authentication/profile_edit.html"
+    success_url = "/auth/profile/"
 
     def get_object(self):
         return self.request.user

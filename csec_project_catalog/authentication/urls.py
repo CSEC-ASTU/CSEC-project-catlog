@@ -13,7 +13,7 @@ urlpatterns = [
     # Profile Page / Dashboard
     path("profile/", views.ProfileDetailView.as_view(), name="profile"),
     path("profile/edit/<int:pk>", views.ProfileEditView.as_view(), name="profile_edit"),
-     # Login / Log Out
+    # Login / Log Out
     path(
         "login/",
         auth_views.LoginView.as_view(
