@@ -1,23 +1,123 @@
 {% extends "base.html" %}
 {% block title %}Create an account{% endblock %}
 {% block form_content %}
-	<div class="card col-6">
-		<div class="form ">
-			<h1 class="form-h">Create an account</h1>
-			<p class="c-br">Please, sign up using the following form:</p>
-			<form method="POST" class="form-b">
-				
-	           <h3 style="color: red;"> {{ form.errors }} </h3>
-				{{ form.non_field_errors }}
-				{{ user_form.as_p }}
-				{% csrf_token %}
-				<button class="btn-l-b pointer" type="submit">Create account</button>
-			</form>
-			
-			<p class="c-g">already have an account sign in here
-		 	<a href="{% url 'login' %}"><i class="fa fa-sign-out-alt c-o"> Log in</i></a></p>
-		</div>
-		
-	</div>
+
+
+<div class="container">
+    <div class="row mgTp">
+
+        <div class="alert alert-danger">
+            <ul>
+                {{ form.errors }}
+          
+            </ul>
+        </div>
+        <div class="alert-danger">
+        	<ul>
+        		{{ form.non_field_errors }}
+        	</ul>
+        </div>
+
+        <form class="col-md-6 offset-md-3">
+            <img src="img/csec.png"  class="center">
+            <h3 class="title">SIGNUP</h3 alt="avatar">
+            <p>Please, sign up using the following form:</p>
+           	<div class="form-all">
+            <!-- <hr class="divisor"> -->
+	            <div class="row1">
+		            <div class="form-group1">
+		                
+		                <label for="exampleInputEmail1" > Firstname</label>
+		                <input
+			                type="text"
+			                class="form-control"
+			                id="first_name"
+			                name="first_name"
+			                placeholder="first name"
+			            />
+		           
+		                <label for="exampleInputPassword1" id="idno">Lastname</label>
+		                <input
+			                type="text"
+			                class="form-control"
+			                id="last_name"
+			                name="last_name"
+			                placeholder="last name"
+			            />
+		            </div>
+		            <br>    
+		            <div class="form-group1">
+		                <label for="exampleInputPassword1">Username</label>
+		                <input
+			                type="text"
+			                class="form-control"
+			                id="username"
+			                name="username"
+			                placeholder="username"
+			            />
+		          
+		         		<label for="exampleInputPassword1" id="idno">Idnumber</label>
+		                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter ID">
+		            </div>
+		            <br>    
+		            <div class="form-group1">
+		                <label for="exampleInputEmail1">Email</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		                <input
+			                type="email"
+			                class="form-control"
+			                id="email"
+			                name="email"
+			                placeholder="email"
+			            />
+		              
+		                <label for="exampleInputEmail1" id="idno">Phone</label>&nbsp&nbsp&nbsp&nbsp
+		                <input
+			                type="tele"
+			                class="form-control"
+			                id="phone_number"
+			                name="phone_number"
+			                placeholder="phone number"
+			            />
+		            </div>
+		            <br> 
+		            <div class="form-group1">
+		                <label for="exampleInputPassword1">Password</label>
+		                <input 
+		                	type="password" 
+		                	class="form-control" 
+		                	id="password"
+		                	name="password" 
+		                	
+		                	/>
+		            </div>
+		            <br>  
+		            <div class="form-group1">
+		                <label for="exampleInputPassword2">Confirm Password</label>
+		                <input 
+		                	type="password" 
+		                	class="form-control" 
+		                	id="password2"
+		                	name="password" 
+		         
+		                	/>
+		            </div>
+		            <br>  
+		            <div class="form-check">
+		                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+		                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+		            </div>
+	           </div>
+            	<button type="submit" class="btn btn-primary topBtn" >
+            		<i class="fa fa-sign-in"></i> 
+            		<a href="login.html">SIGNUP</a>
+            	</button>
+            </div>
+       		{% csrf_token %}
+        </form>
+        <p class="c-g">already have an account sign in here
+		 	<a href="{% url 'login' %}"><i class="fa fa-sign-out-alt "> Log in</i></a>
+		</p>
+    </div>
+</div>
 	
 {% endblock %}

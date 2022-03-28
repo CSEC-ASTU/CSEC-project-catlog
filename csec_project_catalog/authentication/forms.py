@@ -41,3 +41,4 @@ class UserRegistrationForm(forms.ModelForm):
         password2 = cleaned_data.get("password2")
         if password != password2:
             self.add_error("password2", "Passwords does not match")
+

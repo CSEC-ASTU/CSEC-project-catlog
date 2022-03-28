@@ -1,20 +1,26 @@
-{% extends "base.html" %}
-{% block title %}Profile{% endblock %}
+{% extends "base.html" %} {% block title %}Profile{% endblock %} 
 {% block form_content %}
-	<div class="card col-6">
-		<div class="form ">
-			<h1 class="form-h">Hi {{user.username }} welcome to your dashboard</h1>
-			<h2>{{user.first_name }}</h2>
-			<h2>{{user.last_name }}</h2>
-			<h2>{{user.phone_number }}</h2>
-			<p class="c-br">edit your account </p>
-			
-			
-			<a class="" name="logout" href="{% url 'logout' %}">
-				<i class="fa fa-sign-out-alt"></i>Log out
-			</a>
-		</div>
-		
-	</div>
-	
+<div class="card col-6">
+    <div class="form">
+        <h1 class="form-h">Hi {{user.username }} welcome to your dashboard</h1>
+        <h2>FirstName : {{user.first_name }}</h2>
+        <h2>LAstName : {{user.last_name }}</h2>
+        <h2>PhoneNumber : {{user.phone_number }}</h2>
+		<h2>Emial : {{user.email }}</h2>
+		<h2>Website : {{user.website }}</h2>
+		<h2>Github : {{user.github }}</h2>
+		<h2>LinkedIn : {{user.linkedin }}</h2>
+		<h2>Facebook : {{user.facebook }}</h2>
+		<h2>Instagram : {{user.instagram }}</h2>
+
+        <a href="{% url 'profile_edit' user.id %}" class="c-br"
+            >edit your account
+        </a>
+        <br />
+        <a class="" name="logout" href="{% url 'logout' %}">
+            <i class="fa fa-sign-out-alt"></i>Log out
+        </a>
+    </div>
+</div>
+
 {% endblock %}

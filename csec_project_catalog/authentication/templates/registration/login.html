@@ -1,37 +1,63 @@
 {% extends "base.html" %}
 {% block title %}Log-in{% endblock %}
 {% block form_content %}
-	<div class="d-flex">
-	
-		<div class="card col-6">
-			<div class="form">
-				<h1 class="form-h">Log-in</h1>
-				{% if form.errors %}
-					<p class="c-r" style="color: red;">
-						Your username and password didn't match.
-						Please try again.
-					</p>
-				{% else %}
-					<p class="c-b">Please, use the following form to log-in. If you don't have an account 
-					<a href="{% url 'register' %}">register here</a></p>
-				{% endif %}
-				<div class="login-form">
-					<h3 style="color: red;">{{ form.non_field_errors }}</h3>
-					<form action="{% url 'login' %}" method="post" class="form-b">
-						{{ form.non_field_errors }}
-			           <h3 style="color: red;"> {{ form.errors }} </h3>
-						{{ form.as_p }}
-						{% csrf_token %}
-						<input type="hidden" name="next" value="{{ next }}" />
-						<!--p><input class="btn-b" type="submit" value="Log-in"></p-->
-						<button class="btn-b" type="submit"> Login </button>
-					</form>
-				<p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
-				</div>
-			</div>
-		</div>
-		<div class="card col-6 bg-b" id="bg">
-		
-		</div>
+
+	<div class="main-title">CSEC-INTERN</div>
+	<div class="container">
+	    <div class="row mgTp">
+	    	<div class="alert alert-danger">
+	        <ul>
+	            {{ form.errors }}
+	      
+	        </ul>
+	    </div>
+	    <div class="alert-danger">
+	    	<ul>
+	    		{{ form.non_field_errors }}
+	    	</ul>
+	    </div>
+	    <form class="col-md-6 offset-md-3">
+	        
+	        <img src="img/csec.png" class="center">
+	        <h3 class="title">LOGIN</h3>
+	    
+	        <!-- <hr class="divisor"> -->
+	        <div class="form-group">
+	            <label for="exampleInputPassword1">Username</label>
+	            <input
+	                type="text"
+	                class="form-control"
+	                id="username"
+	                name="username"
+	                placeholder="username"
+	            />
+	        </div>
+	        <div class="form-group">
+	            <label for="exampleInputPassword1">Password</label>
+	            <input 
+	            	type="password" 
+	            	class="form-control" 
+	            	id="password"
+	            	name="password" 
+	            	
+	            	/>
+	        </div>
+	        <div class="form-check">
+	          <a href="{% url 'password_reset' %}" color="black"  id="forget">forget password?</a>
+	        </div>
+
+	        <div class="form-check">
+	        	don't have account yet!
+	          <a href="{% url 'register' %}">register here</a>
+	        </div>
+	        
+	        {% csrf_token %}
+			<input type="hidden" name="next" value="{{ next }}" />
+	        <button type="submit" class="btn btn-primary topBtn">
+	        	<i class="fa fa-sign-in"></i> 
+	        	LOGIN
+	        </button>
+	    </form>
+	    </div>
 	</div>
 {% endblock %}

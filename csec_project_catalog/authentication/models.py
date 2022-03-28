@@ -7,24 +7,24 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class Link(models.Model):
-    """Model for storing social links
+# class Link(models.Model):
+#     """Model for storing social links
 
-    Returns:
-        Link Object
-    """
+#     Returns:
+#         Link Object
+#     """
 
-    url = models.URLField(max_length=200)
-    is_deleted = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True, blank=True)
-    deleted_by = models.ForeignKey(
-        "User", on_delete=models.SET_NULL, null=True, blank=True
-    )
+#     url = models.URLField(max_length=200)
+#     is_deleted = models.BooleanField(default=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     deleted_at = models.DateTimeField(null=True, blank=True)
+#     deleted_by = models.ForeignKey(
+#         "User", on_delete=models.SET_NULL, null=True, blank=True
+#     )
 
-    def __str__(self):
-        return f"{self.url}"
+#     def __str__(self):
+#         return f"{self.url}"
 
 
 class User(AbstractUser):
@@ -54,7 +54,11 @@ class User(AbstractUser):
     approved_at = models.DateTimeField(null=True, blank=True)
     approved_status = models.BooleanField(default=False)
     last_login_ip = models.GenericIPAddressField(null=True, blank=True)
-    links = models.ManyToManyField(Link, blank=True)
+    website = models.URLField(null=True, blank=True)
+    linkedin = models.URLField(null=True, blank=True)
+    instagram = models.URLField(null=True, blank=True)
+    facebook = models.URLField(null=True, blank=True)
+    github = models.URLField(null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
