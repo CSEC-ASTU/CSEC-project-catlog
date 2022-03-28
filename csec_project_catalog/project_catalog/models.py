@@ -86,8 +86,6 @@ class Project(models.Model):
     return:
         Project object
     """
-
-    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
@@ -95,6 +93,8 @@ class Project(models.Model):
     description = models.TextField(max_length=2048, blank=True)
     project_link = models.URLField(max_length=200)
     github_link = models.URLField(max_length=200)
+
+
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     updated_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
