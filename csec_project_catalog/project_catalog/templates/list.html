@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Project List</title>
+{% endblock title %}
+
+{% block content %}
+    <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Project Information</h1>
+
+    <!-- Search section  -->
+    <div class="center-form" style="display: flex; justify-content: center;">
+        <form action="{% url 'project-list' %}" method="GET" style="width: 500px;">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search by project title" aria-label="" aria-describedby="basic-addon1" style="margin-right: 10px;"
+              name="search_query" value="{{ search_query }}"/>
+    
+              <input class="btn btn-success" type="submit" value="Search"/>
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">title</th>
+                <th scope="col">description</th>
+                <th scope="col">githublink</th>
+                <th scope="col">projectlink</th>
+                <th scope="col">status</th>
+
+               
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in project %}
+                <tr>
+                
+                    <td>{{ emp.title }}</td>
+                    <td>{{ emp.description }}</td>
+                    <td>{{ emp.github_link }}</td>
+                    <td>{{ emp.project_link }}</td>
+                    <td>{{ emp.status }}</td>
+
+                    <td>
+                        <a style="margin-right: 30px;" href="{% url 'edit-project' emp.id %}">Edit</a>
+                        <a href="{% url 'delete-project' emp.id %}">Remove</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="{% url 'create-project' %}"><button type="button" class="btn btn-primary">Add New Info</button></a>
+    </div>
+{% endblock content %}
