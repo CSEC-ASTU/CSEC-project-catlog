@@ -11,7 +11,8 @@ urlpatterns = [
     # Registartion
     path("register/", views.registeration, name="register"),
     # Profile Page / Dashboard
-    path("profile/", views.profile, name="profile"),
+    path("profile/", views.ProfileDetailView.as_view(), name="profile"),
+    path("profile/edit/<int:pk>", views.ProfileEditView.as_view(), name="profile_edit"),
     # Login / Log Out
     path(
         "login/",
