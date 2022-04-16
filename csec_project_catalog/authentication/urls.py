@@ -17,7 +17,8 @@ urlpatterns = [
     path(
         "login/",
         auth_views.LoginView.as_view(
-            template_name="registration/login.html", next_page="profile"
+           template_name="registration/login.html", 
+        #    next_page="profile",
         ),
         name="login",
     ),

@@ -5,3 +5,4 @@ django-phonenumber-field[phonenumbers]
 python-dotenv==0.19.2
 pillow==9.0.1
 psycopg2==2.9.3
+python-telegram-bot==3.6.3

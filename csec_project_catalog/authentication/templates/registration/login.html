@@ -1,63 +1,65 @@
-{% extends "base.html" %}
-{% block title %}Log-in{% endblock %}
+{% extends "base.html" %} {% block title %}Log-in{% endblock %} 
 {% block form_content %}
 
-	<div class="main-title">CSEC-INTERN</div>
-	<div class="container">
-	    <div class="row mgTp">
-	    	<div class="alert alert-danger">
-	        <ul>
-	            {{ form.errors }}
-	      
-	        </ul>
-	    </div>
-	    <div class="alert-danger">
-	    	<ul>
-	    		{{ form.non_field_errors }}
-	    	</ul>
-	    </div>
-	    <form class="col-md-6 offset-md-3">
-	        
-	        <img src="img/csec.png" class="center">
-	        <h3 class="title">LOGIN</h3>
-	    
-	        <!-- <hr class="divisor"> -->
-	        <div class="form-group">
-	            <label for="exampleInputPassword1">Username</label>
-	            <input
-	                type="text"
-	                class="form-control"
-	                id="username"
-	                name="username"
-	                placeholder="username"
-	            />
-	        </div>
-	        <div class="form-group">
-	            <label for="exampleInputPassword1">Password</label>
-	            <input 
-	            	type="password" 
-	            	class="form-control" 
-	            	id="password"
-	            	name="password" 
-	            	
-	            	/>
-	        </div>
-	        <div class="form-check">
-	          <a href="{% url 'password_reset' %}" color="black"  id="forget">forget password?</a>
-	        </div>
+<div class="main-title">CSEC-INTERN</div>
+<div class="container">
+    <div class="row mgTp">
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {{ form.errors }} 
+                {{ form.error.help_text }}
+            </ul>
+        </div>
+        {% ednif %} {% if form.non_field_errors %}
+        <div class="alert-danger">
+            <ul>
+                {{ form.non_field_errors }}
+            </ul>
+        </div>
+        {% endif %}
+        <form class="col-md-6 offset-md-3" method="post">
+            <img src="img/csec.png" class="center" />
+            <h3 class="title">LOGIN</h3>
 
-	        <div class="form-check">
-	        	don't have account yet!
-	          <a href="{% url 'register' %}">register here</a>
-	        </div>
-	        
-	        {% csrf_token %}
-			<input type="hidden" name="next" value="{{ next }}" />
-	        <button type="submit" class="btn btn-primary topBtn">
-	        	<i class="fa fa-sign-in"></i> 
-	        	LOGIN
-	        </button>
-	    </form>
-	    </div>
-	</div>
-{% endblock %}
+            <!-- <hr class="divisor"> -->
+            <div class="form-group">
+                <label for="exampleInputPassword1">Username</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    placeholder="username"
+                />
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                />
+            </div>
+            <div class="form-check">
+                <a href="{% url 'password_reset' %}" color="black" id="forget"
+                    >forget password?</a
+                >
+            </div>
+
+            <div class="form-check">
+                don't have account yet!
+                <a href="{% url 'register' %}">register here</a>
+            </div>
+
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit" class="btn btn-primary topBtn">
+                <i class="fa fa-sign-in"></i>
+                LOGIN
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock form_content %}
