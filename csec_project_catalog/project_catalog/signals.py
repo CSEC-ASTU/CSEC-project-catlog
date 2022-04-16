@@ -1,6 +1,11 @@
 from django.db.models.signals import (
-    m2m_changed, post_delete, post_save, pre_delete, pre_save,
+    m2m_changed,
+    post_delete,
+    post_save,
+    pre_delete,
+    pre_save,
 )
+
 # signals imports
 from django.dispatch import receiver
 
