@@ -7,11 +7,10 @@
         {% if form.errors %}
         <div class="alert alert-danger">
             <ul>
-                {{ form.errors }} 
-                {{ form.error.help_text }}
+                {{ form.errors }} {{ form.error.help_text }}
             </ul>
         </div>
-        {% ednif %} {% if form.non_field_errors %}
+        {% endif %} {% if form.non_field_errors %}
         <div class="alert-danger">
             <ul>
                 {{ form.non_field_errors }}
