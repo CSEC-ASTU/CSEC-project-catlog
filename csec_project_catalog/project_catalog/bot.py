@@ -1,8 +1,6 @@
 import os
 import re
-
-from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup 
-
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 API_KEY = os.getenv("TG_API_KEY")
 CHANNEL = os.getenv("TG_CHANNEL_ID")
 
