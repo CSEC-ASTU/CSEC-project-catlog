@@ -5,20 +5,18 @@ from project_catalog.bot import send_to_channel
 from project_catalog.models import Project
 
 
-@receiver(pre_save, sender=Project)
-def project_pre_save(sender, instance, *args, **kwargs):
-    global Flag
-    if instance.id == None:
-        current_project = instance
-    else:
-
-        if instance.approved_status == True:
-            if not instance.posted_on_tg == True:
-                send_to_channel(instance)
-                instance.posted_on_tg = True
-
+                
 
 @receiver(post_save, sender=Project)
 def project_post_save(sender, instance, created, *args, **kwargs):
+    print(created, '_------------_')
     if created and not instance.posted_on_tg:
-        send_to_channel(instance)
+        if instance.approved_status == True:
+            send_to_channel(instance)
+            instance.posted_on_tg = True
+            instance.save()
+    else:
+        if not instance.posted_on_tg and instance.approved_status == True:
+            send_to_channel(instance)
+            instance.posted_on_tg = True
+            instance.save()
