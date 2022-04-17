@@ -16,7 +16,6 @@ def send_to_channel(project):
     obj += f"title : {project.title} \n"
     obj += f"description : {project.description} \n"
     obj += f"project_link : {project.project_link} \n"
-    # obj += f"rating : {project.rating.emoji} \n"
 
     keyboard = [[InlineKeyboardButton("Browse", url=project.project_link)]]
     reply_markup = InlineKeyboardMarkup(keyboard)
