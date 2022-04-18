@@ -1,16 +1,17 @@
 import os
 import re
-from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
+
 API_KEY = os.getenv("TG_API_KEY")
 CHANNEL = os.getenv("TG_CHANNEL_ID")
 
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
+
 
 def send_to_channel(project):
-    if os.getenv("ENVIRONMENT", None) == "test": return
+    if os.getenv("ENVIRONMENT", None) == "test":
+        return
     bot = Bot(API_KEY)
-    button = [
-       [InlineKeyboardButton("View", url=project.project_link)]
-    ]
+    button = [[InlineKeyboardButton("View", url=project.project_link)]]
     markup = InlineKeyboardMarkup(button)
     obj = f"""
 user : {project.user.username}

@@ -1,5 +1,9 @@
 from django.db.models.signals import (
-    pre_save,m2m_changed, post_delete, post_save, pre_delete, pre_save
+    m2m_changed,
+    post_delete,
+    post_save,
+    pre_delete,
+    pre_save,
 )
 from django.dispatch import receiver
 from project_catalog.bot import send_to_channel
