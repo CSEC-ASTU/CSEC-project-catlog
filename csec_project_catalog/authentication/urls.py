@@ -8,21 +8,17 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    # Registartion
     path("register/", views.registeration, name="register"),
-    # Profile Page / Dashboard
     path("profile/", views.ProfileDetailView.as_view(), name="profile"),
     path("profile/edit/<int:pk>", views.ProfileEditView.as_view(), name="profile_edit"),
-    # Login / Log Out
     path(
         "login/",
         auth_views.LoginView.as_view(
-            template_name="registration/login.html", next_page="profile"
+            template_name="registration/login.html",
         ),
         name="login",
     ),
     path("logout/", auth_views.LogoutView.as_view(next_page="login"), name="logout"),
-    # Change Password
     path(
         "change-password/",
         auth_views.PasswordChangeView.as_view(
@@ -38,7 +34,6 @@ urlpatterns = [
         ),
         name="change_password_done",
     ),
-    # Forget Password
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(

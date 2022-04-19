@@ -2,6 +2,8 @@
 This models file contains all the models used for project_catalog apps.
 """
 import uuid
+from email.policy import default
+from statistics import mode
 
 from authentication.models import User
 from django.conf import settings
@@ -124,6 +126,7 @@ class Project(models.Model):
     approved_status = models.BooleanField(default=False)
     rating = models.ManyToManyField(Rating, blank=True, related_name="ratingss")
     images = models.ManyToManyField(Image, blank=True, related_name="imagep")
+    posted_on_tg = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

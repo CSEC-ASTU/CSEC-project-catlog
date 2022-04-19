@@ -5,20 +5,27 @@
 
 <div class="container">
     <div class="row mgTp">
-
+		{% if form.errors %}
         <div class="alert alert-danger">
             <ul>
-                {{ form.errors }}
-          
+                
+				{{ form.errors }}
+				
             </ul>
         </div>
+		{% endif %}
+		
+		{% if form.non_field_errors %}
         <div class="alert-danger">
         	<ul>
-        		{{ form.non_field_errors }}
+       		 
+				{{ form.non_field_errors }}
+				
         	</ul>
         </div>
+		{% endif %}
 
-        <form class="col-md-6 offset-md-3">
+        <form class="col-md-6 offset-md-3" method="post">
             <img src="img/csec.png"  class="center">
             <h3 class="title">SIGNUP</h3 alt="avatar">
             <p>Please, sign up using the following form:</p>
@@ -109,7 +116,7 @@
 	           </div>
             	<button type="submit" class="btn btn-primary topBtn" >
             		<i class="fa fa-sign-in"></i> 
-            		<a href="login.html">SIGNUP</a>
+            		SIGNUP
             	</button>
             </div>
        		{% csrf_token %}
