@@ -1,5 +1,5 @@
 coverage==6.3.2
-django==4.0.3
+django==4.0.4
 django-phonenumber-field==6.1.0
 django-phonenumber-field[phonenumbers]
 python-dotenv==0.19.2
