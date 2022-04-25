@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Project
+from .models import Project,Event
 
 
 class ProjectForm(ModelForm):
@@ -28,4 +28,13 @@ class ProjectForm(ModelForm):
             "github_link": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Github link"}
             ),
+        }
+class EventForm(ModelForm):
+    class Meta:
+        model = Event
+        
+        fields = ('description',)
+        widgets = {
+
+            'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}),
         }
