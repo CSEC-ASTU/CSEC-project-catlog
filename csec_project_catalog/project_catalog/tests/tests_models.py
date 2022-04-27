@@ -71,9 +71,6 @@ class ModelTestCases(TestCase):
         self.assertTrue(project.project_link is not None)
         self.assertEqual(project.created_by, self.user)
         self.assertTrue(project.created_at, 28 / 11 / 2018)
-        self.assertTrue(project.is_deleted is False)
-        self.assertEqual(project.deleted_by, self.user)
-        self.assertTrue(project.updated_at is not None)
 
     def test_valid_event_creation(self):
         event = Event.objects.create(
@@ -81,6 +78,5 @@ class ModelTestCases(TestCase):
             description="#7777opowoe",
             is_read=True,
         )
-        self.assertTrue(rating.created_at, 28 / 11 / 2018)
         self.assertTrue(rating.is_read == False)
         self.assertEqual(project.description, "#7777opowoe")

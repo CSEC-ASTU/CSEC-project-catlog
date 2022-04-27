@@ -1,10 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import redirect, render
 
-from .forms import ProjectForm,EventForm
+from .forms import ProjectForm, EventForm
 
-from .models import Project,Event
-
+from .models import Project, Event
 
 
 def project_list(request):
@@ -66,6 +65,7 @@ def delete_project(request, pk):
         "project": project,
     }
     return render(request, "delete.html", context)
+
 
 def event_list(request):
     event = Event.objects.all()
