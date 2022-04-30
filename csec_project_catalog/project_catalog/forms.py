@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Project, Event
+from .models import Event, Project
 
 
 class ProjectForm(ModelForm):

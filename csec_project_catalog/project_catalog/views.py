@@ -1,9 +1,8 @@
 from django.db.models import Q
 from django.shortcuts import redirect, render
 
-from .forms import ProjectForm, EventForm
-
-from .models import Project, Event
+from .forms import EventForm, ProjectForm
+from .models import Event, Project
 
 
 def project_list(request):

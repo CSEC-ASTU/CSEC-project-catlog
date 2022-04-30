@@ -3,7 +3,7 @@
 # pylint: disable=invalid-name
 
 from django.test import TestCase
-from project_catalog.models import Image, Project, Rating, User, Event
+from project_catalog.models import Event, Image, Project, Rating, User
 
 
 class ModelTestCases(TestCase):
@@ -73,5 +73,5 @@ class ModelTestCases(TestCase):
             description="#7777opowoe",
             is_read=True,
         )
-        self.assertTrue(event.is_read == False)
+        self.assertTrue(event.is_read == True)
         self.assertEqual(event.description, "#7777opowoe")
