@@ -130,3 +130,20 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Event(models.Model):
+    """Event model class for event table.
+    return:
+        Event object
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    description = models.TextField(max_length=200, blank=True)
+    is_read = models.BooleanField(default=False, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user
