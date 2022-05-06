@@ -123,7 +123,12 @@ class Project(models.Model):
         blank=True,
         related_name="papprover",
     )
-    approved_status = models.BooleanField(default=False)
+    STATUS_CHOICES = [
+        ("Pending", "Pending"),
+        ("Approve", "Approve"),
+        ("Reject", "Reject"),
+    ]
+    approved_status = models.TextField(choices=STATUS_CHOICES, default="Pending")
     rating = models.ManyToManyField(Rating, blank=True, related_name="ratingss")
     images = models.ManyToManyField(Image, blank=True, related_name="imagep")
     posted_on_tg = models.BooleanField(default=False)
