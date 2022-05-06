@@ -1,0 +1,4 @@
+[flake8]
+exclude=
+    csec_project_catalog/*.py,
+    */migrations/*

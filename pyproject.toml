@@ -1,0 +1,10 @@
+[tool.black]
+extend-exclude="""
+^/migrations/*
+env/*
+^/__pycache__/*
+"""
+
+[tool.isort]
+profile = "django"
+extend_skip=[".env", ".env_example", "env/*", "migrations/*"]

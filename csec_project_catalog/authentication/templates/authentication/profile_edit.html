@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% block title %}Profile-edit{% endblock title %}
+{%block form_content %}
+<div>
+    <div>
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in form.errors %}
+                <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    <form class="form" method="post">
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input
+                type="text"
+                class="form-control"
+                id="first_name"
+                name="first_name"
+                value="{{user.first_name}}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input
+                type="text"
+                class="form-control"
+                id="last_name"
+                name="last_name"
+                value="{{user.last_name}}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="phone_number">Phone Number</label>
+            <input
+                type="text"
+                class="form-control"
+                id="phone_number"
+                name="phone_number"
+                value="{{user.phone_number}}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input
+                type="text"
+                class="form-control"
+                id="email"
+                name="email"
+                value="{{user.email}}"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="website">website</label>
+            <input
+                type="text"
+                class="form-control"
+                id="website"
+                name="website"
+                value="{{user.website}}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="linkedin">linkedin</label>
+            <input
+                type="text"
+                class="form-control"
+                id="linkendin"
+                name="linkedin"
+                value="{{user.linkedin}}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="github">github</label>
+            <input
+                type="text"
+                class="form-control"
+                id="github"
+                name="github"
+                value="{{user.github}}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="facbook">facebook</label>
+            <input
+                type="text"
+                class="form-control"
+                id="facebook"
+                name="facebook"
+                value="{{user.facebook}}"
+            />
+        </div>
+        <div class="form-group">
+            <label for="instagram">instagram</label>
+            <input
+                type="text"
+                class="form-control"
+                id="instagram"
+                name="instagram"
+                value="{{user.instagram}}"
+            />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        {% csrf_token %}
+    </form>
+</div>
+
+{% endblock form_content %}
