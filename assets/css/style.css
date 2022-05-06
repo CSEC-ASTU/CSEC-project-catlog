@@ -55,9 +55,13 @@ TABLES OF CSS
 body {
   background-repeat: repeat;
   background: #f3f3f3;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   color: #5b626b;
   font-size: 13.5px;
+  --font-default: 'Open Sans', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-primary: 'Source Sans Pro', sans-serif;
+  --font-secondary: 'Poppins', sans-serif;
+
 }
 
 html {
@@ -648,7 +652,7 @@ body {
 }
 
 #topnav .topbar-main .logo .logo-large {
-  height: 24px;
+  height: 38px;
 }
 
 #topnav .topbar-main .logo-small {
@@ -3760,4 +3764,6 @@ Invoice
   padding-bottom: 3px;
 
 
+}#center-img{
+  align-items: center;
 }
