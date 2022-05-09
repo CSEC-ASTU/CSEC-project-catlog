@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Registration
+{% endblock title %}
+
+{% block content %}
+<!-- Background -->
+<div class="account-pages"id="p-3"></div>
+
+<!-- Begin page -->
+<div class="wrapper-page">
+    <div class="card" >
+        <div class="card-body" id="register-card">
+
+            <h3 class="text-center m-0">
+                <a href="index.html" class="logo logo-admin" ><img src="{% static 'images/csec.png' %}" height="80" alt="logo"></a>
+            </h3>
+
+            <div class="p-3" >
+                <h4 class="text-muted font-18 m-b-5 text-center" >Sign up</h4>
+             
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        
+                        {{ form.errors }}
+                        
+                    </ul>
+                </div>
+                {% endif %}
+                
+                {% if form.non_field_errors %}
+                <div class="alert-danger">
+                    <ul>
+                    
+                        {{ form.non_field_errors }}
+                        
+                    </ul>
+                </div>
+                {% endif %}
+                <form class="form-horizontal m-t-30" method="POST">
+                    {% csrf_token %}
+  
+                    <div class="form-group">
+                        <label>Full name</label>
+                        <div>
+                         <div class="input-group" id="side">
+                                <input type="text" id="firstName" name="first_name" class="form-control " placeholder="First name">
+                                <input type="text" id="LastName" name="last_name" class="form-control " placeholder="Last name">
+
+                            </div>
+                        </div> 
+                        </div>
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label for="useremail">Email</label>
+                        <input type="email" name="email" class="form-control" id="useremail" placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div>
+                            <div class="input-group">
+                                <input type="password" name="password" id="password" class="form-control floating-label" placeholder="Enter password">
+                                <input type="password" name="password2" id="verify_password" class="form-control floating-label" placeholder="Verify password">
+
+                            </div>
+                        </div> 
+                        </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" class="form-control" name="phone_number" id="phone" placeholder="Enter phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">ID Number</label>
+                        <input type="text" class="form-control" name="id_number" id="Idnumber" placeholder="Enter password">
+                    </div>  
+
+
+                    <div class="form-group row m-t-20">
+                        <div class="col-12 text-right">
+                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Register</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-t-10 mb-0 row">
+                      
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="m-t-40 text-center">
+        <p class="text-muted">Already have an account ? <a href="{% url 'login' %}" class="text-white">Login </a> </p>
+          </div>
+    
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'js/waves.min.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js" integrity="sha512-3PRVLmoBYuBDbCEojg5qdmd9UhkPiyoczSFYjnLhFb2KAFsWWEMlAPt0olX1Nv7zGhDfhGEVkXsu51a55nlYmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- App js -->
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock js %}

@@ -4,7 +4,21 @@ class with Django ORM installed.
 """
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.core.exceptions import ValidationError
 from phonenumber_field.modelfields import PhoneNumberField
+
+
+def validate_phone_number(value):
+    """
+    Validate phone number
+    """
+    if len(value) != 10:
+        raise ValidationError("Phone number must be 10 digits")
+    
+    if not value.isdigit():
+        raise ValidationError("Phone number must be numeric")
+    
+     
 
 # class Link(models.Model):
 #     """Model for storing social links
@@ -35,7 +49,10 @@ class User(AbstractUser):
     """
 
     email = models.EmailField("email address", unique=True)
-    phone_number = PhoneNumberField()
+    gender = models.CharField(max_length=10, choices=(
+        ('male', 'male'), ('female', 'female')), null=True, blank=True)
+    phone_number = models.CharField(max_length=15, validators=[validate_phone_number])
+    birthdate = models.DateField(null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,3 +78,7 @@ class User(AbstractUser):
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
+    
+    @property
+    def dob(self):
+        return self.birthdate.strftime("%Y-%m-%d") if self.birthdate else None
