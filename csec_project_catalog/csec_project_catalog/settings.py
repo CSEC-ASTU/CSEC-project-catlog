@@ -80,6 +80,9 @@ if DB_CONFIG["ENGINE"] and "sqlite3" not in DB_CONFIG["ENGINE"]:
     DB_CONFIG["HOST"] = os.getenv("HOST")
     DB_CONFIG["PORT"] = os.getenv("PORT")
 
+if DB_CONFIG["NAME"] == "db.sqlite3":
+    DB_CONFIG["NAME"] = os.path.join(BASE_DIR, "db.sqlite3")
+
 DATABASES = {"default": DB_CONFIG}
 
 

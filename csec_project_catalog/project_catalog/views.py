@@ -4,10 +4,9 @@ from django.views.generic import ListView
 # import django Login Require mixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import ProjectForm
-from .models import Project
+from .forms import ProjectForm, EventForm
+from .models import Project, Event
 from authentication.models import User
-
 
 class DashboardView(LoginRequiredMixin, ListView):
     model = Project
@@ -95,3 +94,56 @@ def delete_project(request, pk):
         "project": project,
     }
     return render(request, "delete.html", context)
+
+
+def event_list(request):
+    event = Event.objects.all()
+    context = {
+        "event": event,
+    }
+    return render(request, "event.html", context)
+
+
+def create_event(request):
+    form = EventForm()
+
+    if request.method == "POST":
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("event-list")
+
+    context = {
+        "form": form,
+    }
+    return render(request, "event.html", context)
+
+
+def edit_event(request, pk):
+    event = Event.objects.get(id=pk)
+    form = EventForm(instance=event)
+
+    if request.method == "POST":
+        form = EventForm(request.POST, request.FILES, instance=evemt)
+        if form.is_valid():
+            form.save()
+            return redirect("event-list")
+
+    context = {
+        "evemt": event,
+        "form": form,
+    }
+    return render(request, "event.html", context)
+
+
+def delete_event(request, pk):
+    event = Event.objects.get(id=pk)
+
+    if request.method == "POST":
+        event.delete()
+        return redirect("event-list")
+
+    context = {
+        "event": event,
+    }
+    return render(request, "event.html", context)

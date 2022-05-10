@@ -3,7 +3,7 @@
 # pylint: disable=invalid-name
 
 from django.test import TestCase
-from project_catalog.models import Image, Project, Rating, User
+from project_catalog.models import Event, Image, Project, Rating, User
 
 
 class ModelTestCases(TestCase):
@@ -25,13 +25,10 @@ class ModelTestCases(TestCase):
             deleted_by=self.user,
             is_deleted=False,
             id=2,
-            created_at=28 / 11 / 2018,
         )
         self.assertEqual(rating.id, 2)
-
         self.assertEqual(rating.emoji, "😀")
         self.assertEqual(rating.created_by, self.user)
-        self.assertTrue(rating.created_at, 28 / 11 / 2018)
         self.assertTrue(rating.is_deleted == False)
         self.assertEqual(rating.deleted_by, self.user)
         self.assertTrue(rating.updated_at != None)
@@ -42,11 +39,9 @@ class ModelTestCases(TestCase):
             created_by=self.user,
             is_deleted=False,
             deleted_by=self.user,
-            created_at=28 / 11 / 2018,
         )
         self.assertEqual(image.id, 1)
         self.assertEqual(image.created_by, self.user)
-        self.assertTrue(image.created_at, 28 / 11 / 2018)
         self.assertTrue(image.is_deleted == False)
         self.assertEqual(image.deleted_by, self.user)
         self.assertTrue(image.updated_at != None)
@@ -60,7 +55,6 @@ class ModelTestCases(TestCase):
             created_by=self.user,
             is_deleted=False,
             deleted_by=self.user,
-            created_at=28 / 11 / 2018,
         )
         self.assertEqual(project.id, 1)
         self.assertEqual(project.title, "sniuke ksjh")
@@ -70,7 +64,14 @@ class ModelTestCases(TestCase):
         )
         self.assertTrue(project.project_link is not None)
         self.assertEqual(project.created_by, self.user)
-        self.assertTrue(project.created_at, 28 / 11 / 2018)
         self.assertTrue(project.is_deleted is False)
         self.assertEqual(project.deleted_by, self.user)
         self.assertTrue(project.updated_at is not None)
+
+    def test_valid_event_creation(self):
+        event = Event.objects.create(
+            description="#7777opowoe",
+            is_read=True,
+        )
+        self.assertTrue(event.is_read == True)
+        self.assertEqual(event.description, "#7777opowoe")
