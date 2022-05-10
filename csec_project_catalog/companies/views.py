@@ -1,15 +1,21 @@
 from dataclasses import field
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from companies.models import Company
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 
 class CompaniesListView(ListView):
     model = Company
-    template_name = 'companies/companies-list.html'
-    context_object_name = 'companies'
+    template_name = "companies/companies-list.html"
+    context_object_name = "companies"
 
     def get_queryset(self):
         return Company.objects.filter(is_deleted=False)
@@ -17,8 +23,8 @@ class CompaniesListView(ListView):
 
 class CompanyDetailView(DetailView):
     model = Company
-    template_name = 'companies/company-detail.html'
-    context_object_name = 'company'
+    template_name = "companies/company-detail.html"
+    context_object_name = "company"
 
     def get_queryset(self):
         return Company.objects.filter(is_deleted=False)
@@ -26,8 +32,8 @@ class CompanyDetailView(DetailView):
 
 class CompanyDeleteView(LoginRequiredMixin, DeleteView):
     model = Company
-    template_name = 'companies/company-delete.html'
-    context_object_name = 'company'
+    template_name = "companies/company-delete.html"
+    context_object_name = "company"
     success_url = reverse_lazy("companies-list")
 
     def get_queryset(self):
@@ -41,8 +47,8 @@ class CompanyDeleteView(LoginRequiredMixin, DeleteView):
 
 class CreateView(LoginRequiredMixin, CreateView):
     model = Company
-    template_name = 'companies/company-create.html'
-    context_object_name = 'company'
+    template_name = "companies/company-create.html"
+    context_object_name = "company"
     success_url = reverse_lazy("companies-list")
 
     def get_queryset(self):
@@ -62,12 +68,26 @@ class CreateView(LoginRequiredMixin, CreateView):
 
 class CompanyUpdateView(LoginRequiredMixin, UpdateView):
     model = Company
-    template_name = 'companies/company-update.html'
-    context_object_name = 'company'
+    template_name = "companies/company-update.html"
+    context_object_name = "company"
     success_url = reverse_lazy("companies-list")
-    fields = ['name', 'description', 'address', 'city', 'state',
-              'phone_number', 'country', 'email', 'website', 'logo',
-              'facebook', 'twitter', 'linkedin', 'instagram', 'youtube']
+    fields = [
+        "name",
+        "description",
+        "address",
+        "city",
+        "state",
+        "phone_number",
+        "country",
+        "email",
+        "website",
+        "logo",
+        "facebook",
+        "twitter",
+        "linkedin",
+        "instagram",
+        "youtube",
+    ]
 
     def get_queryset(self):
         return Company.objects.filter(is_deleted=False)
