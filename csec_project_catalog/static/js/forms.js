@@ -35,9 +35,8 @@ $(document).ready(function () {
             swal(
                 {
                     title: 'Good job!',
-                    text: 'You clicked the button!',
+                    text: 'Successfully Updated!',
                     type: 'success',
-                    showCancelButton: true,
                     confirmButtonClass: 'btn btn-success',
                     cancelButtonClass: 'btn btn-danger m-l-10'
                 }
@@ -45,7 +44,12 @@ $(document).ready(function () {
         },
         error: function (data) {
             console.log(data);
-            alert("Error Happened");
+            swal({
+                title: 'Error!',
+                text: "Error Happened!",
+                type: 'warning',
+                confirmButtonClass: 'btn btn-danger m-l-10',
+            })
         },
     });
 

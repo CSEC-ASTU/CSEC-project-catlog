@@ -36,14 +36,21 @@ def project_list(request):
     if request.GET.get("search_query"):
         search_query = request.GET.get("search_query")
 
-    project = Project.objects.filter(Q(title__icontains=search_query))
+    projects = Project.objects.filter(Q(title__icontains=search_query))
 
     context = {
-        "project": project,
+        "projects": projects,
         "search_query": search_query,
     }
     return render(request, "dashboard/project-list.html", context)
 
+class MyProjectListView(LoginRequiredMixin, ListView):
+    model = Project
+    template_name = 'dashboard/my-project.html'
+    context_object_name = 'projects'
+
+    def get_queryset(self):
+        return Project.objects.filter(user=self.request.user)
 
 def create_project(request):
     form = ProjectForm()

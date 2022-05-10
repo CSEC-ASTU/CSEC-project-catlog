@@ -47,7 +47,7 @@ def get_image_filepath(instance, filename):
         str: path of the image
     """
     filename = filename + uuid.uuid4().hex[:10]
-    return f"images/{str(instance.user.username)}/{filename}/.png"
+    return f"images/{filename}.png"
 
 
 # pylint: disable=too-few-public-methods
@@ -92,7 +92,7 @@ class Project(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
-    title = models.TextField(max_length=200, blank=True)
+    title = models.CharField(max_length=200, blank=True)
     description = models.TextField(max_length=2048, blank=True)
     project_link = models.URLField(max_length=200)
     github_link = models.URLField(max_length=200)
@@ -124,10 +124,27 @@ class Project(models.Model):
         blank=True,
         related_name="papprover",
     )
-    approved_status = models.BooleanField(default=False)
     rating = models.ManyToManyField(Rating, blank=True, related_name="ratingss")
     images = models.ManyToManyField(Image, blank=True, related_name="imagep")
     posted_on_tg = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+    
+    @property
+    def get_cover_image(self):
+        """Get the cover image of the project.
+
+        Returns:
+            Image: cover image of the project
+        """
+        return self.images.first() if self.images.exists() else None
+    
+    @property
+    def get_short_description(self):
+        """Get the short description of the project.
+
+        Returns:
+            str: short description of the project
+        """
+        return self.description[:100] if self.description else None

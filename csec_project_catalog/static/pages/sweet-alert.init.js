@@ -32,7 +32,7 @@
             swal(
                 {
                     title: 'Good job!',
-                    text: 'You clicked the button!',
+                    text: 'Success!',
                     type: 'success',
                     showCancelButton: true,
                     confirmButtonClass: 'btn btn-success',

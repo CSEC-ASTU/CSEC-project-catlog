@@ -7,12 +7,12 @@ from project_catalog.models import Project
 @receiver(post_save, sender=Project)
 def project_post_save(sender, instance, created, *args, **kwargs):
     if created and not instance.posted_on_tg:
-        if instance.approved_status == True:
+        if instance.is_approved == True:
             send_to_channel(instance)
             instance.posted_on_tg = True
             instance.save()
     else:
-        if not instance.posted_on_tg and instance.approved_status == True:
+        if not instance.posted_on_tg and instance.is_approved == True:
             send_to_channel(instance)
             instance.posted_on_tg = True
             instance.save()
