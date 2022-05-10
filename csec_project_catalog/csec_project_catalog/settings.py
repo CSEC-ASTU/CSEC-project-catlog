@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     # My Apps
     "authentication",
     "project_catalog",
+    "companies",
     # 3rd Party Apps
     "phonenumber_field",
 ]
