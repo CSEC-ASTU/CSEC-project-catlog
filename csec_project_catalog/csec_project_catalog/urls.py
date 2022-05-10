@@ -13,6 +13,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("authentication.urls"), name="authentication"),
     path("project/", include("project_catalog.urls"), name="project"),
+    path("companies/", include("companies.urls"), name="companies"),
 ]
 
 # For Development only
