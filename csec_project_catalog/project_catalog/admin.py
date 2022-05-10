@@ -28,6 +28,5 @@ class ProjectAdmin(admin.ModelAdmin):
         "approved_status",
     )
     list_filter = ("approved_status",)
-
-
+    ordering = ("-created_at",)
 admin.site.register(Project, ProjectAdmin)

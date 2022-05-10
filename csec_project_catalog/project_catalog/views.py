@@ -8,16 +8,12 @@ from .models import Project, Event
 
 def project_list(request):
 
-    search_query = ""
-
-    if request.GET.get("search_query"):
-        search_query = request.GET.get("search_query")
-
-    project = Project.objects.filter(Q(title__icontains=search_query))
+    project = Project.objects.filter(approved_status="Approved").order_by(
+        "-created_at",
+    )
 
     context = {
         "project": project,
-        "search_query": search_query,
     }
     return render(request, "list.html", context)
 

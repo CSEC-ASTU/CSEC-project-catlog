@@ -105,7 +105,7 @@ class Project(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="pcreator",
+        related_name="pcreator",   
     )
     deleted_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -125,8 +125,8 @@ class Project(models.Model):
     )
     STATUS_CHOICES = [
         ("Pending", "Pending"),
-        ("Approve", "Approve"),
-        ("Reject", "Reject"),
+        ("Approved", "Approved"),
+        ("Rejected", "Rejected"),
     ]
     approved_status = models.TextField(choices=STATUS_CHOICES, default="Pending")
     rating = models.ManyToManyField(Rating, blank=True, related_name="ratingss")
