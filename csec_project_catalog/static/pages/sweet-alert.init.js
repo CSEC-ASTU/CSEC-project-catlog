@@ -52,6 +52,7 @@
                 cancelButtonClass: 'btn btn-danger m-l-10',
                 confirmButtonText: 'Yes, delete it!'
             }).then(function () {
+                
                 swal(
                     'Deleted!',
                     'Your file has been deleted.',

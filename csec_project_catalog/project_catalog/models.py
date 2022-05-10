@@ -148,6 +148,15 @@ class Project(models.Model):
             str: short description of the project
         """
         return self.description[:100] if self.description else None
+    
+    @property
+    def get_human_redable_date(self):
+        """Get the human readable date of the project.
+
+        Returns:
+            str: human readable date of the project
+        """
+        return self.created_at.strftime("%d %b %Y")
 
 
 class Event(models.Model):
