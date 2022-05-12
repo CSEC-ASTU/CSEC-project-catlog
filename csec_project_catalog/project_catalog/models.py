@@ -175,8 +175,6 @@ class Project(models.Model):
         """
         if self.rating.count() == 0:
             return 0
-
-        print("Project Rating", round(self.rating.aggregate(models.Avg("rating"))["rating__avg"], 2))
         return round(self.rating.aggregate(models.Avg("rating"))["rating__avg"], 2)
 
 
