@@ -14,9 +14,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 # fmt: off
-from django.views.generic import (
-    CreateView, DetailView, ListView, TemplateView,
-)
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from .forms import EventForm, ProjectForm, ProjectImageForm
 from .models import Event, Project, Rating
