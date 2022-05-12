@@ -1,22 +1,28 @@
 import json
 import logging
 
-from django.urls import reverse_lazy
-
 from authentication.models import User
+from companies.models import Company
 
 # import django Login Require mixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import DeleteView, DetailView, ListView, TemplateView, CreateView
+
+# fmt: off
+from django.views.generic import (
+    CreateView, DetailView, ListView, TemplateView,
+)
 
 from .forms import EventForm, ProjectForm, ProjectImageForm
 from .models import Event, Project, Rating
-from companies.models import Company
+
+# fmt: on
+
 
 # add logging to the file
 logger = logging.getLogger(__name__)
@@ -35,8 +41,7 @@ class DashboardView(LoginRequiredMixin, ListView):
             is_deleted=0, is_approved=1
         ).count()
         kwargs["total_talents"] = User.objects.filter(is_deleted=0).count()
-        kwargs["total_companies"] = Company.objects.filter(
-            is_deleted=0).count()
+        kwargs["total_companies"] = Company.objects.filter(is_deleted=0).count()
         kwargs["recent_projects"] = Project.objects.filter(
             is_deleted=0, is_approved=1
         ).order_by("-created_at")[:5]
@@ -65,8 +70,7 @@ class ProjectListView(ListView):
         if self.request.user.is_staff:
             if search:
                 return queryset.filter(
-                    Q(title__icontains=search) | Q(
-                        description__icontains=search)
+                    Q(title__icontains=search) | Q(description__icontains=search)
                 ).order_by("-created_at")
 
             return queryset
@@ -74,8 +78,7 @@ class ProjectListView(ListView):
         if search:
             return (
                 queryset.filter(
-                    Q(title__icontains=search) | Q(
-                        description__icontains=search)
+                    Q(title__icontains=search) | Q(description__icontains=search)
                 )
                 .filter(is_approved=1)
                 .order_by("-created_at")
@@ -94,7 +97,7 @@ class CreateProjectView(LoginRequiredMixin, CreateView):
     form_class = ProjectForm
     template_name = "dashboard/create-project.html"
     success_url = reverse_lazy("project-list")
-    
+
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
@@ -144,16 +147,13 @@ class ProjectRating(LoginRequiredMixin, DetailView):
             return JsonResponse({"error": "Rating must be a number"})
 
         if project.rating:
-            previous_rating = project.rating.filter(
-                created_by=request.user).first()
+            previous_rating = project.rating.filter(created_by=request.user).first()
             if previous_rating:
                 previous_rating.rating = rating
                 previous_rating.save()
                 return JsonResponse({"success": "Rating added successfully"})
 
-        rating = Rating.objects.create(
-            rating=rating, created_by=request.user
-        )
+        rating = Rating.objects.create(rating=rating, created_by=request.user)
         project.rating.add(rating)
         return JsonResponse({"success": "Rating added successfully"})
 
@@ -194,9 +194,7 @@ class DeleteProject(LoginRequiredMixin, TemplateView):
 
     def delete(self, request, pk, *args, **kwargs):
         if self.request.user.is_staff:
-            self.object = Project.objects.filter(
-                id=pk, is_deleted=0
-            )
+            self.object = Project.objects.filter(id=pk, is_deleted=0)
         else:
             self.object = Project.objects.filter(
                 id=pk, user=self.request.user, is_deleted=0
@@ -295,11 +293,13 @@ class ProjectImageUpload(LoginRequiredMixin, TemplateView):
             form.instance.created_by = self.request.user
             form.save()
 
-            return JsonResponse({
-                "success": "Image added successfully",
-                "image_id": form.instance.id,
-                })
-            
+            return JsonResponse(
+                {
+                    "success": "Image added successfully",
+                    "image_id": form.instance.id,
+                }
+            )
+
         print(form.errors)
 
         return JsonResponse({"error": "Image not added successfully"}, status=400)

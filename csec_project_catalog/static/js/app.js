@@ -63,6 +63,17 @@
         Waves.init();
     },
 
+    $('#intern').on('click', function () {
+        // show comming soon text
+        swal({
+            title: "Coming Soon!",
+            text: "This feature is coming soon!",
+            type: "info",
+            confirmButtonText: "OK"
+        });
+    })
+
+
     //init
     $.MainApp = new MainApp, $.MainApp.Constructor = MainApp
 }(window.jQuery),

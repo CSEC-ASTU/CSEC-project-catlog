@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "companies",
     # 3rd Party Apps
     "phonenumber_field",
+    "django_filters",
 ]
 
 MIDDLEWARE = [

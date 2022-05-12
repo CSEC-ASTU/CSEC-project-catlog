@@ -42,6 +42,7 @@ class EventForm(ModelForm):
             ),
         }
 
+
 class ProjectImageForm(ModelForm):
     class Meta:
         model = Image

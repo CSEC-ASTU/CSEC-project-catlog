@@ -20,7 +20,7 @@ CSEC-ASTU Intern - Dashboard
                         <li class="breadcrumb-item active">Welcome to CSEC-ASTU Intern Dashboard</li>
                     </ol>
                     {% if user.is_staff %}
-                    <a href="{% url 'companies-list' %}" class="btn btn-primary">Create Company</a>
+                    <a href="{% url 'company-create' %}" class="btn btn-primary">Create Company</a>
                     {% endif %}
                 </div>
             </div>

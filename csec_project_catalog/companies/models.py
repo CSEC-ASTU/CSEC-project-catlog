@@ -60,7 +60,7 @@ class Company(models.Model):
             str: human readable date of the project
         """
         return self.created_at.strftime("%d %b %Y")
-    
+
     @property
     def get_short_description(self):
         """Get the short description of the project.

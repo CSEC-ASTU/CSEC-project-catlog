@@ -7,8 +7,9 @@ from statistics import mode
 
 from authentication.models import User
 from django.conf import settings
-from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+
 # pylint: disable=too-few-public-methods
 
 
@@ -19,8 +20,7 @@ class Rating(models.Model):
 
     id = models.AutoField(primary_key=True)
     rating = models.IntegerField(
-        default=0,
-        validators=[MinValueValidator(0), MaxValueValidator(5)]
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,7 +40,7 @@ class Rating(models.Model):
     def __str__(self):
         if self.created_by:
             return f"{self.rating} by {self.created_by}"
-        
+
         return f"{self.rating}"
 
 
@@ -66,9 +66,7 @@ class Image(models.Model):
     """
 
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(
-        max_length=255, upload_to=get_image_filepath
-    )
+    image = models.ImageField(max_length=255, upload_to=get_image_filepath)
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     updated_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -131,8 +129,7 @@ class Project(models.Model):
         blank=True,
         related_name="papprover",
     )
-    rating = models.ManyToManyField(
-        Rating, blank=True, related_name="ratingss")
+    rating = models.ManyToManyField(Rating, blank=True, related_name="ratingss")
     images = models.ManyToManyField(Image, blank=True, related_name="imagep")
     posted_on_tg = models.BooleanField(default=False)
 
