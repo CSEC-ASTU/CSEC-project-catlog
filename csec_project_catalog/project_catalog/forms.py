@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Event, Project
+from .models import Event, Image, Project
 
 
 class ProjectForm(ModelForm):
@@ -41,3 +41,8 @@ class EventForm(ModelForm):
                 attrs={"class": "form-control", "placeholder": "Description"}
             ),
         }
+
+class ProjectImageForm(ModelForm):
+    class Meta:
+        model = Image
+        fields = ["image"]

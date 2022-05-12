@@ -54,29 +54,12 @@
         $('[data-toggle="popover"]').popover();
     },
 
-    MainApp.prototype.initHeaderCharts = function () {
-        $('#header-chart-1').sparkline([8, 6, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12], {
-            type: 'bar',
-            height: '35',
-            barWidth: '5',
-            barSpacing: '3',
-            barColor: '#1b82ec'
-        });
-        $('#header-chart-2').sparkline([8, 6, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12], {
-            type: 'bar',
-            height: '35',
-            barWidth: '5',
-            barSpacing: '3',
-            barColor: '#f5b225'
-        });
-    },
 
     MainApp.prototype.init = function () {
         this.initNavbar();
         this.initScrollbar();
         this.initMenuItem();
         this.initComponents();
-        this.initHeaderCharts();
         Waves.init();
     },
 

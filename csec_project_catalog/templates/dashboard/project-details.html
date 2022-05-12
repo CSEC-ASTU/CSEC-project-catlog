@@ -21,6 +21,7 @@ CSEC-ASTU Intern - Project Details
             <div class="row">
                 <div class="col-sm-12">
                     <h4 class="page-title">Project Details</h4>
+                    <a href="{% url 'project-list' %}" class="btn btn-primary">Create Project</a>
                 </div>
             </div>
         </div>
@@ -37,6 +38,35 @@ CSEC-ASTU Intern - Project Details
                         <div class="card-body">
                             <h4 class="mt-0 header-title">{{ project.title }}</h4>
                             <p class="text-muted m-b-30">{{ project.description }} </p>
+
+                            <!-- Show Projet Links -->
+                            <div class="row">
+                                <div class="col-md-3 mb-1">
+                                    <a href="{{ project.github_link }}" target="_blank" class="btn btn-primary btn-lg btn-block">Github</a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="{{ project.project_link }}" target="_blank" class="btn btn-primary btn-lg btn-block">Live</a>
+                                </div>
+                            </div>
+                            <!-- End Show Projet Links -->
+                            <!-- Project Creator Details -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card m-b-30">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title">Project Creator</h4>
+                                            <p class="text-muted m-b-30">{{ project.user.get_full_name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Blank Space separation -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <br>
+                                </div>
+                            </div>
+
                             {% if project.images.all %}
                             <div class="popup-gallery">
                                 {% for image in project.images.all %}
@@ -53,6 +83,8 @@ CSEC-ASTU Intern - Project Details
                 </div> <!-- end col -->
                 <div class="col-12">
                     <a class="btn btn-danger mo-mb-2" id="project-delete" href="#">Delete</a>
+                    <!-- Rate button with icon -->
+                    <a class="btn btn-primary mo-mb-2" id="project-rate" href="#">Rate</a>
                 </div>
             </div> <!-- end row -->
         </div>
@@ -110,6 +142,59 @@ CSEC-ASTU Intern - Project Details
             },
         })
     });
+    // Simple 5 star rating.
+    $('#project-rate').click(function () {
+        swal({
+            title: 'Rate this project',
+            input: 'select',
+            inputOptions: {
+                '1': '1',
+                '2': '2',
+                '3': '3',
+                '4': '4',
+                '5': '5'
+            },
+            inputPlaceholder: 'Select a star',
+            inputAttributes: {
+                'aria-label': 'Select a star'
+            },
+            showCancelButton: true,
+            inputValidator: function (value) {
+                return new Promise(function (resolve, reject) {
+                    if (value) {
+                        resolve();
+                    } else {
+                        reject('You need to select a star');
+                    }
+                });
+            },
+            confirmButtonText: 'Rate',
+            showLoaderOnConfirm: true,
+            preConfirm: function (value) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        url: "{% url 'project-rate' project.id %}",
+                        type: 'POST',
+                        data: {
+                            rating: value
+                        },
+                        success: function (response) {
+                            swal('Rated!', response.message, response.status);
+                        },
+                        error: function (response) {
+                            swal({
+                                title: 'Error!',
+                                text: response.responseJSON.message,
+                                type: 'error',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    });
+
 </script>
 
 

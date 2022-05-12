@@ -76,7 +76,8 @@ WSGI_APPLICATION = "csec_project_catalog.wsgi.application"
 DB_CONFIG = {"ENGINE": os.getenv("ENGINE"), "NAME": os.getenv("NAME")}
 
 if DB_CONFIG["ENGINE"] and "sqlite3" not in DB_CONFIG["ENGINE"]:
-    DB_CONFIG["USER"] = os.getenv("USER")
+    print(os.getenv("DB_USER"), os.getenv("PASSWORD"), os.getenv("HOST"))
+    DB_CONFIG["USER"] = os.getenv("DB_USER") or os.getenv("USER")
     DB_CONFIG["PASSWORD"] = os.getenv("PASSWORD")
     DB_CONFIG["HOST"] = os.getenv("HOST")
     DB_CONFIG["PORT"] = os.getenv("PORT")

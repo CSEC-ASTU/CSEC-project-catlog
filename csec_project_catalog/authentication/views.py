@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import DetailView, ListView, UpdateView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
 from .forms import UserRegistrationForm
 from .models import User
@@ -46,7 +46,7 @@ class ProfileEditView(LoginRequiredMixin, TemplateView):
 
     def get_object(self):
         return self.request.user
-    
+
     def post(self, request, *args, **kwargs):
         print("POST", request.POST)
         self.object = self.get_object()
@@ -61,11 +61,10 @@ class ProfileEditView(LoginRequiredMixin, TemplateView):
         if "birth_date" in request.POST:
             user.birthdate = request.POST["birth_date"]
         else:
-            print("birthdate not in request.POST", request.POST.get('birthdate', None))
+            print("birthdate not in request.POST", request.POST.get("birthdate", None))
         if "gender" in request.POST:
-            user.gender = request.POST['gender']
+            user.gender = request.POST["gender"]
 
         user.save()
-        
+
         return self.render_to_response(self.get_context_data(**kwargs))
-        

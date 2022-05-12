@@ -8,16 +8,20 @@ from statistics import mode
 from authentication.models import User
 from django.conf import settings
 from django.db import models
-
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 # pylint: disable=too-few-public-methods
+
+
 class Rating(models.Model):
     """
     Rating model for storing rating of the project list
     """
 
     id = models.AutoField(primary_key=True)
-    emoji = models.TextField(max_length=2048, blank=True)
+    rating = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(5)]
+    )
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
@@ -34,7 +38,10 @@ class Rating(models.Model):
     )
 
     def __str__(self):
-        return str(self.emoji)
+        if self.created_by:
+            return f"{self.rating} by {self.created_by}"
+        
+        return f"{self.rating}"
 
 
 def get_image_filepath(instance, filename):
@@ -60,7 +67,7 @@ class Image(models.Model):
 
     id = models.AutoField(primary_key=True)
     image = models.ImageField(
-        max_length=255, upload_to=get_image_filepath, null=True, blank=True
+        max_length=255, upload_to=get_image_filepath
     )
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -124,13 +131,14 @@ class Project(models.Model):
         blank=True,
         related_name="papprover",
     )
-    rating = models.ManyToManyField(Rating, blank=True, related_name="ratingss")
+    rating = models.ManyToManyField(
+        Rating, blank=True, related_name="ratingss")
     images = models.ManyToManyField(Image, blank=True, related_name="imagep")
     posted_on_tg = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
-    
+
     @property
     def get_cover_image(self):
         """Get the cover image of the project.
@@ -139,7 +147,7 @@ class Project(models.Model):
             Image: cover image of the project
         """
         return self.images.first() if self.images.exists() else None
-    
+
     @property
     def get_short_description(self):
         """Get the short description of the project.
@@ -148,7 +156,7 @@ class Project(models.Model):
             str: short description of the project
         """
         return self.description[:100] if self.description else None
-    
+
     @property
     def get_human_redable_date(self):
         """Get the human readable date of the project.
@@ -157,6 +165,19 @@ class Project(models.Model):
             str: human readable date of the project
         """
         return self.created_at.strftime("%d %b %Y")
+
+    @property
+    def get_project_rating(self):
+        """Get the average rating of the project.
+
+        Returns:
+            float: average rating of the project
+        """
+        if self.rating.count() == 0:
+            return 0
+
+        print("Project Rating", round(self.rating.aggregate(models.Avg("rating"))["rating__avg"], 2))
+        return round(self.rating.aggregate(models.Avg("rating"))["rating__avg"], 2)
 
 
 class Event(models.Model):

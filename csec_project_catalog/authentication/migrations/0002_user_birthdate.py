@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0001_initial'),
+        ("authentication", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='birthdate',
+            model_name="user",
+            name="birthdate",
             field=models.DateField(blank=True, null=True),
         ),
     ]

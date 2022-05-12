@@ -21,11 +21,7 @@ CSEC-ASTU Intern - Profile Update
 
             <div class="row">
                 <div class="col-sm-12">
-                    
-                    
                     <h4 class="page-title">Profile</h4>
-                   
-
                 </div>
             </div>
         </div>
@@ -86,6 +82,50 @@ CSEC-ASTU Intern - Profile Update
                                         <a href="#" id="inline-dob" data-type="combodate" data-value="{% if user.dob %} {{ user.dob }} {% endif%}" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY" data-pk="1"  data-title="Select Date of birth"></a>
                                     </td>
                                 </tr>
+                                <!-- User Social links -->
+                                <tr>
+                                    <td>Facebook</td>
+                                    <td>
+                                        <a href="#" id="inline-facebook" data-type="text" data-pk="1" data-placement="right" data-placeholder="Facebook" data-title="Facebook">
+                                            {{ user.facebook|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Instagram</td>
+                                    <td>
+                                        <a href="#" id="inline-instagram" data-type="text" data-pk="1" data-placement="right" data-placeholder="Instagram" data-title="Instagram">
+                                            {{ user.instagram|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% comment %} Linkedin {% endcomment %}
+                                <tr>
+                                    <td>Linkedin</td>
+                                    <td>
+                                        <a href="#" id="inline-linkedin" data-type="text" data-pk="1" data-placement="right" data-placeholder="Linkedin" data-title="Linkedin">
+                                            {{ user.linkedin|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Github</td>
+                                    <td>
+                                        <a href="#" id="inline-github" data-type="text" data-pk="1" data-placement="right" data-placeholder="Twitter" data-title="Twitter">
+                                            {{ user.github|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Website</td>
+                                    <td>
+                                        <a href="#" id="inline-website" data-type="text" data-pk="1" data-placement="right" data-placeholder="Website" data-title="Website">
+                                            {{ user.website|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+
+
                                 </tbody>
                             </table>
                             <div class="form-group">
