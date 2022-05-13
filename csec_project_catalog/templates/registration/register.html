@@ -14,57 +14,98 @@ Registration
         <div class="card-body" id="register-card">
 
             <h3 class="text-center m-0">
-                <a href="index.html" class="logo logo-admin" ><img src="{% static 'images/csec.png' %}" height="80" alt="logo"></a>
+                <a href="" class="logo logo-admin" ><img src="{% static 'images/csec.png' %}" height="80" alt="logo"></a>
             </h3>
 
             <div class="p-2" >
                 <h4 class="text-muted font-18 m-b-5 text-center" >Sign up</h4>
-             
-                {% if form.errors %}
-                <div class="alert alert-danger">
-                    <ul>
-                        {{ form.errors }}
-                        
-                    </ul>
-                </div>
-                {% endif %}
                 
-                {% if form.non_field_errors %}
-                <div class="alert-danger">
-                    <ul>
-                        {{ form.non_field_errors }}
-                    </ul>
-                </div>
-                {% endif %}
+                
                 <form class="form-horizontal m-t-20" method="POST">
+                   
                     {% csrf_token %}
   
                     <div class="form-group">
                         <label>Full name</label>
-                        <div>
+                        {% if user_form.first_name.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.first_name.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        {% if user_form.last_name.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.last_name.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        
                          <div class="input-group" id="side">
-                                <input type="text" id="firstName" name="first_name" class="form-control " placeholder="First name">
-                                <input type="text" id="LastName" name="last_name" class="form-control " placeholder="Last name">
+                                <input type="text" id="firstName" name="first_name" class="form-control " placeholder="First name" required="">
+                                <input type="text" id="LastName" name="last_name" class="form-control " placeholder="Last name" required="">
                             </div>
                         </div> 
                         </div>
 
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+                        {% if user_form.username.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.username.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username" required="">
                     </div>
                       
                     <div class="form-group">
                         <label for="useremail">Email</label>
-                        <input type="email" name="email" class="form-control" id="useremail" placeholder="Enter email">
+                        {% if user_form.email.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.email.errors }}
+                                
+                            </ul>
+
+                        </div>
+                        {% endif %}
+
+                        <input type="email" name="email" class="form-control" id="useremail" placeholder="Enter email"  required="">
                     </div>
 
                     <div class="form-group">
                         <label>Password</label>
+                        {% if user_form.password.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.password.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% if user_form.password2.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.password2.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        
                         <div>
                             <div class="input-group">
-                                <input type="password" name="password" id="password" class="form-control floating-label" placeholder="Enter password">
-                                <input type="password" name="password2" id="verify_password" class="form-control floating-label" placeholder="Verify password">
+                                <input type="password" name="password" id="password" class="form-control floating-label" placeholder="Enter password" required="">
+                                <input type="password" name="password2" id="verify_password" class="form-control floating-label" placeholder="Verify password" required="">
 
                             </div>
                         </div> 
@@ -72,13 +113,29 @@ Registration
 
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="tel" class="form-control" name="phone_number" id="phone" placeholder="Enter phone number">
+                        {% if user_form.phone.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.phone.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <input type="tel" class="form-control" name="phone_number" id="phone" placeholder="Enter phone number" required="">
                     </div>
 
                     <div class="form-group row">
                         <label for="birthday" class="col-sm-2 col-form-label">Birthdate</label>
+                        {% if user_form.birthday.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.birthday.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %} 
                         <div class="col-sm-10">
-                            <input class="form-control" type="date" id="birthday" name="birthday">
+                            <input class="form-control" type="date" id="birthday" name="birthday" required="">
                         </div>
                     </div>
 

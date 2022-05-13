@@ -4,14 +4,18 @@ import logging
 from authentication.models import User
 from companies.models import Company
 
-# import django Login Require mixin
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.admin.views.decorators import staff_member_required
+
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+
 
 # fmt: off
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
@@ -91,6 +95,33 @@ class ProjectDetails(DetailView):
     template_name = "dashboard/project-details.html"
     context_object_name = "project"
 
+    def post(self, request, *args, **kwargs):
+        project = self.get_object()
+        if request.user.is_staff:
+            project.is_approved = True
+            project.save()
+            return redirect("project-list")
+        else:
+            project.status = "declined"
+            project.save()
+            return redirect("project-list")
+
+@staff_member_required
+def project_approve(request, pk):
+    project = get_object_or_404(Project, id=pk)
+    project.is_approved = True
+    project.status = "accepted"
+    project.approved_by = request.user
+    project.save()
+    return redirect("project-list")
+@staff_member_required
+def project_decline(request, pk):
+    project = get_object_or_404(Project, id=pk)
+    project.is_approved = False
+    project.status = "declined"
+    project.is_deleted = True
+    project.save()
+    return redirect("project-list")
 
 class CreateProjectView(LoginRequiredMixin, CreateView):
     model = Project

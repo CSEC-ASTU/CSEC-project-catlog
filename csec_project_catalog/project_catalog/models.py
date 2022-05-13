@@ -94,6 +94,11 @@ class Project(models.Model):
         Project object
     """
 
+    STATUSCHOICES = (
+        ("pending", "Pending"),
+        ("accepted", "Accepted"),
+        ("declined", "Declined"),
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
@@ -104,6 +109,7 @@ class Project(models.Model):
 
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     is_approved = models.BooleanField(default=False, null=True, blank=False)
+    status = models.CharField(choices=STATUSCHOICES, max_length=200, default="pending")
     updated_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(

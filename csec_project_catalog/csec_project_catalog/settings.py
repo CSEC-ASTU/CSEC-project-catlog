@@ -18,7 +18,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
