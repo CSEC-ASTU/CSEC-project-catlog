@@ -13,7 +13,7 @@
       </div>
 
       <!-- End Logo container-->
-
+      {% if user.is_authenticated %}
       <div class="menu-extras topbar-custom">
         <ul class="navbar-right d-flex list-inline float-right mb-0">
           {% comment %}
@@ -170,6 +170,7 @@
           </li>
         </ul>
       </div>
+      {% endif %}
       <!-- end menu-extras -->
 
       <div class="clearfix"></div>
@@ -205,6 +206,13 @@
               ><i class="mdi mdi-laptop-mac"></i>Intern Info</a
             >
           </li>
+          {% if user.is_authenticated and user.is_staff %}
+          <li class="has-submenu">
+            <a href="#" id="intern"
+              ><i class="fa fa-user"></i>Admin Project</a
+            >
+          </li>
+          {% endif %}
 
           {% comment %}
           <li class="has-submenu">

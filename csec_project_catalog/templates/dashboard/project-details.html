@@ -82,7 +82,9 @@ CSEC-ASTU Intern - Project Details
                     </div>
                 </div> <!-- end col -->
                 <div class="col-12">
+                    {% if user == project.user %}
                     <a class="btn btn-danger mo-mb-2" id="project-delete" href="#">Delete</a>
+                    {% endif %}
                     <!-- Rate button with icon -->
                     <a class="btn btn-primary mo-mb-2" id="project-rate" href="#">Rate</a>
                 </div>
@@ -126,13 +128,15 @@ CSEC-ASTU Intern - Project Details
                         data: form,
                         processData: false,
                         success: function (response) {
+                            console.log(response);
                             swal('Deleted!', response.message, response.status);
                             window.location.href = "{% url 'project-list' %}";
                         },
                         error: function (response) {
+                            console.log("response", response)
                             swal({
                                 title: 'Error!',
-                                text: response.responseJSON.message,
+                                text: response.responseJSON.error,
                                 type: 'error',
                                 confirmButtonClass: 'btn btn-confirm mt-2'
                             });

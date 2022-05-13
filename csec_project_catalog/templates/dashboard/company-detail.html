@@ -70,9 +70,11 @@ CSEC-ASTU Intern - Company Details
                         </div>
                     </div>
                 </div> <!-- end col -->
+                {% if user.is_staff %}
                 <div class="col-12">
                     <a class="btn btn-danger mo-mb-2" id="company-delete" href="#">Delete</a>
                 </div>
+                {% endif %}
             </div> <!-- end row -->
         </div>
     </div>
@@ -117,9 +119,22 @@ CSEC-ASTU Intern - Company Details
                             window.location.href = "{% url 'companies-list' %}";
                         },
                         error: function (response) {
+                            text = ""
+                            if (response.status == 400) {
+                                text = response.responseJSON.error;
+                            } else if (response.status == 500) {
+                                text = "Internal server error";
+                            } else if (response.status == 404) {
+                                text = "Company not found";
+                            } else if (response.status == 403) {
+                                text = "You don't have permission to delete this company";
+                            } else {
+                                text = "Something went wrong";
+                            }
+
                             swal({
                                 title: 'Error!',
-                                text: response.responseJSON.message,
+                                text: text,
                                 type: 'error',
                                 confirmButtonClass: 'btn btn-confirm mt-2'
                             });

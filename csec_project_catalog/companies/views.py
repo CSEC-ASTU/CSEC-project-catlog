@@ -15,7 +15,7 @@ from django.views.generic import (
 
 class CompaniesListView(ListView):
     model = Company
-    template_name = "dashboard/companies.html"  # TODO - change the template folder to its own folder
+    template_name = "dashboard/companies.html"  # TODO #18 - change the template folder to its own folder
     context_object_name = "companies"
     paginate_by = 1
 
@@ -60,7 +60,7 @@ class CompanyDeleteView(LoginRequiredMixin, TemplateView):
 
 class CompanyCreateView(LoginRequiredMixin, CreateView):
     model = Company
-    template_name = "dashboard/company-create.html"  # TODO - change the template folder to its own folder
+    template_name = "dashboard/company-create.html"  # TODO #19 - change the template folder to its own folder
     form_class = CompanyForm
     context_object_name = "company"
     success_url = reverse_lazy("companies-list")

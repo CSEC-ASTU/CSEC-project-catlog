@@ -21,7 +21,6 @@ from .models import Event, Project, Rating
 
 # fmt: on
 
-
 # add logging to the file
 logger = logging.getLogger(__name__)
 
@@ -55,7 +54,7 @@ class DashboardView(LoginRequiredMixin, ListView):
 
 class ProjectListView(ListView):
     model = Project
-    # TODO - change the template folder to its own folder
+    # TODO #20 - change the template folder to its own folder
     template_name = "dashboard/project-list.html"
     context_object_name = "projects"
     paginate_by = 10
@@ -63,10 +62,11 @@ class ProjectListView(ListView):
     search_fields = ("title",)
 
     def get_queryset(self):
-        search = self.request.GET.get("search_query", None)
+        search = self.request.GET.get("search", None)
         queryset = Project.objects.filter(is_deleted=0)
         if self.request.user.is_staff:
             if search:
+                # TODO #22 #21 - add filter for the project status(approved, rejected, pending)
                 return queryset.filter(
                     Q(title__icontains=search) | Q(description__icontains=search)
                 ).order_by("-created_at")
@@ -74,6 +74,7 @@ class ProjectListView(ListView):
             return queryset
 
         if search:
+            # TODO - add filter for the project status(approved, rejected, pending)
             return (
                 queryset.filter(
                     Q(title__icontains=search) | Q(description__icontains=search)
@@ -81,6 +82,7 @@ class ProjectListView(ListView):
                 .filter(is_approved=1)
                 .order_by("-created_at")
             )
+
         return Project.objects.filter(is_deleted=0, is_approved=1)
 
 
@@ -110,6 +112,28 @@ class CreateProjectView(LoginRequiredMixin, CreateView):
                 logger.exception(e)
 
         return super().form_valid(form)
+
+
+class AdminProjectView(LoginRequiredMixin, ListView):
+    model = Project
+    template_name = "dashboard/admin-project.html"
+    context_object_name = "projects"
+    paginate_by = 10
+    filter_fields = ("title",)
+    search_fields = ("title",)
+
+    def get_queryset(self):
+        search = self.request.GET.get("search", None)
+        queryset = Project.objects.filter(is_deleted=0)
+        if search:
+            return (
+                queryset.filter(
+                    Q(title__icontains=search) | Q(description__icontains=search)
+                )
+                .order_by("-created_at")
+            )
+
+        return Project.objects.filter(is_deleted=0)
 
 
 def create_project(request):
@@ -202,7 +226,7 @@ class DeleteProject(LoginRequiredMixin, TemplateView):
             return JsonResponse(
                 {"error": "Project doesn't exist", "success": False}, status=400
             )
-
+        
         self.object.first().delete()
         return JsonResponse({"error": None, "success": True}, status=200)
 
