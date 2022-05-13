@@ -3,6 +3,7 @@ from pathlib import Path
 
 # Lazy reverse URL resolving
 from django.urls import reverse_lazy
+
 # Load Environment variable
 from dotenv import load_dotenv
 
