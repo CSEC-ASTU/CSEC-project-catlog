@@ -15,20 +15,21 @@
         </div>
 		{% endif %}
 		
-		{% if form.non_field_errors %}
-        <div class="alert-danger">
-        	<ul>
-       		 
-				{{ form.non_field_errors }}
-				
-        	</ul>
-        </div>
-		{% endif %}
+		
 
         <form class="col-md-6 offset-md-3" method="post">
             <img src="img/csec.png"  class="center">
             <h3 class="title">SIGNUP</h3 alt="avatar">
             <p>Please, sign up using the following form:</p>
+			{% for field in form %}
+        <div class="alert-danger">
+        	<ul>
+       		 
+				{{ field.errors }}
+				
+        	</ul>
+        </div>
+		{% endfor %}
            	<div class="form-all">
             <!-- <hr class="divisor"> -->
 	            <div class="row1">
