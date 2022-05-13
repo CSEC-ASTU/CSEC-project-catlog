@@ -3,19 +3,14 @@ import logging
 
 from authentication.models import User
 from companies.models import Company
-
-
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.admin.views.decorators import staff_member_required
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
-
 
 # fmt: off
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
@@ -106,6 +101,7 @@ class ProjectDetails(DetailView):
             project.save()
             return redirect("project-list")
 
+
 @staff_member_required
 def project_approve(request, pk):
     project = get_object_or_404(Project, id=pk)
@@ -114,6 +110,8 @@ def project_approve(request, pk):
     project.approved_by = request.user
     project.save()
     return redirect("project-list")
+
+
 @staff_member_required
 def project_decline(request, pk):
     project = get_object_or_404(Project, id=pk)
@@ -122,6 +120,7 @@ def project_decline(request, pk):
     project.is_deleted = True
     project.save()
     return redirect("project-list")
+
 
 class CreateProjectView(LoginRequiredMixin, CreateView):
     model = Project
@@ -157,12 +156,9 @@ class AdminProjectView(LoginRequiredMixin, ListView):
         search = self.request.GET.get("search", None)
         queryset = Project.objects.filter(is_deleted=0)
         if search:
-            return (
-                queryset.filter(
-                    Q(title__icontains=search) | Q(description__icontains=search)
-                )
-                .order_by("-created_at")
-            )
+            return queryset.filter(
+                Q(title__icontains=search) | Q(description__icontains=search)
+            ).order_by("-created_at")
 
         return Project.objects.filter(is_deleted=0)
 
@@ -257,7 +253,7 @@ class DeleteProject(LoginRequiredMixin, TemplateView):
             return JsonResponse(
                 {"error": "Project doesn't exist", "success": False}, status=400
             )
-        
+
         self.object.first().delete()
         return JsonResponse({"error": None, "success": True}, status=200)
 

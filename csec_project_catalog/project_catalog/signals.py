@@ -26,7 +26,3 @@ def project_post_save(sender, instance, created, *args, **kwargs):
             except Exception as e:
                 print(e)
                 pass
-        
-
-
-
