@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 
+# Lazy reverse URL resolving
+from django.urls import reverse_lazy
+
 # Load Environment variable
 from dotenv import load_dotenv
 
@@ -15,7 +18,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -33,6 +36,7 @@ INSTALLED_APPS = [
     "companies",
     # 3rd Party Apps
     "phonenumber_field",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -50,7 +54,7 @@ ROOT_URLCONF = "csec_project_catalog.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -73,7 +77,8 @@ WSGI_APPLICATION = "csec_project_catalog.wsgi.application"
 DB_CONFIG = {"ENGINE": os.getenv("ENGINE"), "NAME": os.getenv("NAME")}
 
 if DB_CONFIG["ENGINE"] and "sqlite3" not in DB_CONFIG["ENGINE"]:
-    DB_CONFIG["USER"] = os.getenv("USER")
+    print(os.getenv("DB_USER"), os.getenv("PASSWORD"), os.getenv("HOST"))
+    DB_CONFIG["USER"] = os.getenv("DB_USER") or os.getenv("USER")
     DB_CONFIG["PASSWORD"] = os.getenv("PASSWORD")
     DB_CONFIG["HOST"] = os.getenv("HOST")
     DB_CONFIG["PORT"] = os.getenv("PORT")
@@ -119,6 +124,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+# Media file
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -128,6 +140,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Setting Default user model
 AUTH_USER_MODEL = "authentication.User"
 
-LOGIN_REDIRECT_URL = "profile"
+LOGIN_REDIRECT_URL = reverse_lazy("dashboard-index")
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"

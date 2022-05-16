@@ -1,0 +1,205 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block title %} 
+CSEC-ASTU Intern - Project Details
+{% endblock title %}
+{% block css %}
+<link href="{% static 'plugins/magnific-popup/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'plugins/sweet-alert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+{% endblock css %}
+
+{% block header %}
+{% include 'dashboard/header.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="wrapper">
+    <div class="page-title-box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Project Details</h4>
+                    <a href="{% url 'project-list' %}" class="btn btn-primary">Create Project</a>
+                </div>
+            </div>
+        </div>
+        <!-- end container-fluid -->
+    
+    </div>
+    <!-- page-title-box -->
+    
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title">{{ project.title }}</h4>
+                            <p class="text-muted m-b-30">{{ project.description }} </p>
+
+                            <!-- Show Projet Links -->
+                            <div class="row">
+                                <div class="col-md-3 mb-1">
+                                    <a href="{{ project.github_link }}" target="_blank" class="btn btn-primary btn-lg btn-block">Github</a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="{{ project.project_link }}" target="_blank" class="btn btn-primary btn-lg btn-block">Live</a>
+                                </div>
+                            </div>
+                            <!-- End Show Projet Links -->
+                            <!-- Project Creator Details -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card m-b-30">
+                                        <div class="card-body">
+                                            <h4 class="mt-0 header-title">Project Creator</h4>
+                                            <p class="text-muted m-b-30">{{ project.user.get_full_name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Blank Space separation -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <br>
+                                </div>
+                            </div>
+
+                            {% if project.images.all %}
+                            <div class="popup-gallery">
+                                {% for image in project.images.all %}
+                                <a class="float-left" href="{{ image.image.url }}" title="Image {{ forloop.counter }}">
+                                    <div class="img-responsive">
+                                        <img src="{{ image.image.url }}" alt="" width="300">
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+                <div class="col-12">
+                    {% if user == project.user %}
+                    <a class="btn btn-danger mo-mb-2" id="project-delete" href="#">Delete</a>
+                    {% endif %}
+                    <!-- Rate button with icon -->
+                    <a class="btn btn-primary mo-mb-2" id="project-rate" href="#">Rate</a>
+                </div>
+            </div> <!-- end row -->
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Required datatable js -->
+{% block js %}
+
+<script src="{% static 'plugins/moment/moment.js' %}"></script>
+<script src="{% static 'plugins/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'pages/lightbox.js' %}"></script>
+<!-- Sweet-Alert  -->
+<script src="{% static 'plugins/sweet-alert2/sweetalert2.min.js' %} "></script>
+<script src="{% static 'pages/sweet-alert.init.js' %}"></script>
+
+<script>
+    $('#project-delete').click(function () {
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            confirmButtonText: 'Yes, delete it!',
+            preConfirm: function () {
+                return new Promise(function (resolve, reject) {
+                    const form = new FormData();
+                    form.append('_method', 'DELETE');
+                    form.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+                    $.ajax({
+                        url: "{% url 'project-delete' project.id %}",
+                        type: 'DELETE',
+                        data: form,
+                        processData: false,
+                        success: function (response) {
+                            console.log(response);
+                            swal('Deleted!', response.message, response.status);
+                            window.location.href = "{% url 'project-list' %}";
+                        },
+                        error: function (response) {
+                            console.log("response", response)
+                            swal({
+                                title: 'Error!',
+                                text: response.responseJSON.error,
+                                type: 'error',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                        }
+                    });
+                });
+            },
+        })
+    });
+    // Simple 5 star rating.
+    $('#project-rate').click(function () {
+        swal({
+            title: 'Rate this project',
+            input: 'select',
+            inputOptions: {
+                '1': '⭐️',
+                '2': '⭐️⭐️',
+                '3': '⭐️⭐️⭐️',
+                '4': '⭐️⭐️⭐️⭐️',
+                '5': '⭐️⭐️⭐️⭐️⭐️',
+            },
+            inputPlaceholder: 'Select a star',
+            inputAttributes: {
+                'aria-label': 'Select a star'
+            },
+            showCancelButton: true,
+            inputValidator: function (value) {
+                return new Promise(function (resolve, reject) {
+                    if (value) {
+                        resolve();
+                    } else {
+                        reject('You need to select a star');
+                    }
+                });
+            },
+            confirmButtonText: 'Rate',
+            showLoaderOnConfirm: true,
+            preConfirm: function (value) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        url: "{% url 'project-rate' project.id %}",
+                        type: 'POST',
+                        data: {
+                            rating: value
+                        },
+                        success: function (response) {
+                            swal('Rated!', response.message, response.status);
+                        },
+                        error: function (response) {
+                            swal({
+                                title: 'Error!',
+                                text: response.responseJSON.message,
+                                type: 'error',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    });
+
+</script>
+
+
+{% endblock js %}

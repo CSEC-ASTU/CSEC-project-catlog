@@ -10,7 +10,7 @@ from . import views
 urlpatterns = [
     path("register/", views.registeration, name="register"),
     path("profile/", views.ProfileDetailView.as_view(), name="profile"),
-    path("profile/edit/<int:pk>", views.ProfileEditView.as_view(), name="profile_edit"),
+    path("profile/edit/", views.ProfileEditView.as_view(), name="profile_edit"),
     path(
         "login/",
         auth_views.LoginView.as_view(

@@ -1,0 +1,150 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block title %} 
+CSEC-ASTU Intern - Company Details
+{% endblock title %}
+{% block css %}
+<link href="{% static 'plugins/magnific-popup/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'plugins/sweet-alert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+{% endblock css %}
+
+{% block header %}
+{% include 'dashboard/header.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="wrapper">
+    <div class="page-title-box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Company Details</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end container-fluid -->
+    
+    </div>
+    <!-- page-title-box -->
+    
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title">{{ company.name }}</h4>
+                            <p class="text-muted m-b-30">{{ company.description }} </p>
+                            <div class="popup-gallery">
+                                <a class="float-left" href="{{ company.logo.url }}" title="Image {{ forloop.counter }}">
+                                    <div class="img-responsive">
+                                        <img src="{{ company.logo.url }}" alt="" width="300">
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Show company Details -->
+                            <div class="tab-content">
+                                <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5 class="mt-0">Company Details</h5>
+                                            <p class="text-muted m-b-30">
+                                                <b>Name:</b> {{ company.name }}<br>
+                                                <b>Description:</b> {{ company.description }}<br>
+                                                <b>Address:</b> {{ company.address }}<br>
+                                                <b>Email:</b> {{ company.email }}<br>   
+                                                <b>Phone:</b> {{ company.phone }}<br>
+                                                <b>Website:</b> {{ company.website }}<br>
+                                                <b>Facebook:</b> {{ company.facebook }}<br>
+                                                <b>Twitter:</b> {{ company.twitter }}<br>
+                                                <b>Instagram:</b> {{ company.instagram }}<br>
+                                                <b>LinkedIn:</b> {{ company.linkedin }}<br>
+                                                <b>Youtube:</b> {{ company.youtube }}<br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+                {% if user.is_staff %}
+                <div class="col-12">
+                    <a class="btn btn-danger mo-mb-2" id="company-delete" href="#">Delete</a>
+                </div>
+                {% endif %}
+            </div> <!-- end row -->
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Required datatable js -->
+{% block js %}
+
+<script src="{% static 'plugins/moment/moment.js' %}"></script>
+<script src="{% static 'plugins/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'pages/lightbox.js' %}"></script>
+<!-- Sweet-Alert  -->
+<script src="{% static 'plugins/sweet-alert2/sweetalert2.min.js' %} "></script>
+<script src="{% static 'pages/sweet-alert.init.js' %}"></script>
+
+<script>
+    $('#company-delete').click(function () {
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger m-l-10',
+            confirmButtonText: 'Yes, delete it!',
+            preConfirm: function () {
+                return new Promise(function (resolve, reject) {
+                    const form = new FormData();
+                    form.append('_method', 'DELETE');
+                    form.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+                    $.ajax({
+                        url: "{% url 'company-delete' company.id %}",
+                        type: 'DELETE',
+                        data: form,
+                        processData: false,
+                        success: function (response) {
+                            swal('Deleted!', response.message, response.status);
+                            window.location.href = "{% url 'companies-list' %}";
+                        },
+                        error: function (response) {
+                            text = ""
+                            if (response.status == 400) {
+                                text = response.responseJSON.error;
+                            } else if (response.status == 500) {
+                                text = "Internal server error";
+                            } else if (response.status == 404) {
+                                text = "Company not found";
+                            } else if (response.status == 403) {
+                                text = "You don't have permission to delete this company";
+                            } else {
+                                text = "Something went wrong";
+                            }
+
+                            swal({
+                                title: 'Error!',
+                                text: text,
+                                type: 'error',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                        }
+                    });
+                });
+            },
+        })
+    });
+</script>
+
+
+{% endblock js %}

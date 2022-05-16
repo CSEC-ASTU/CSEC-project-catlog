@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Registration
+{% endblock title %}
+
+{% block content %}
+<!-- Background -->
+<div class="account-pages"id="p-3"></div>
+
+<!-- Begin page -->
+<div class="wrapper-page">
+    <div class="card" >
+        <div class="card-body" id="register-card">
+
+            <h3 class="text-center m-0">
+                <a href="" class="logo logo-admin" ><img src="{% static 'images/csec.png' %}" height="80" alt="logo"></a>
+            </h3>
+
+            <div class="p-2" >
+                <h4 class="text-muted font-18 m-b-5 text-center" >Sign up</h4>
+                
+                
+                <form class="form-horizontal m-t-20" method="POST">
+                   
+                    {% csrf_token %}
+  
+                    <div class="form-group">
+                        <label>Full name</label>
+                        {% if user_form.first_name.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.first_name.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        {% if user_form.last_name.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.last_name.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        
+                         <div class="input-group" id="side">
+                                <input type="text" id="firstName" name="first_name" class="form-control " placeholder="First name" required="">
+                                <input type="text" id="LastName" name="last_name" class="form-control " placeholder="Last name" required="">
+                            </div>
+                        </div> 
+                        </div>
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        {% if user_form.username.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.username.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Enter username" required="">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label for="useremail">Email</label>
+                        {% if user_form.email.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.email.errors }}
+                                
+                            </ul>
+
+                        </div>
+                        {% endif %}
+
+                        <input type="email" name="email" class="form-control" id="useremail" placeholder="Enter email"  required="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        {% if user_form.password.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.password.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% if user_form.password2.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.password2.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        
+                        <div>
+                            <div class="input-group">
+                                <input type="password" name="password" id="password" class="form-control floating-label" placeholder="Enter password" required="">
+                                <input type="password" name="password2" id="verify_password" class="form-control floating-label" placeholder="Verify password" required="">
+
+                            </div>
+                        </div> 
+                        </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        {% if user_form.phone.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.phone.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <input type="tel" class="form-control" name="phone_number" id="phone" placeholder="Enter phone number" required="">
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="birthdate" class="col-sm-2 col-form-label">Birthdate</label>
+                        {% if user_form.birthdate.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ user_form.birthdate.errors }}
+                                
+                            </ul>
+                        </div>
+                        {% endif %} 
+                        <div class="col-sm-10">
+                            <input class="form-control" type="date" id="birthdate" name="birthdate" required="">
+                        </div>
+                    </div>
+
+                    <!-- choice field -->
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Sex</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row m-t-20">
+                        <div class="col-12 text-right">
+                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Register</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-t-10 mb-0 row">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t-40 text-center">
+        <p class="text-muted">Already have an account ? <a href="{% url 'login' %}" class="text-white">Login </a> </p>
+          </div>
+    
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'js/waves.min.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js" integrity="sha512-3PRVLmoBYuBDbCEojg5qdmd9UhkPiyoczSFYjnLhFb2KAFsWWEMlAPt0olX1Nv7zGhDfhGEVkXsu51a55nlYmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- App js -->
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock js %}
