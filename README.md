@@ -15,3 +15,12 @@ Every developer must follow this steps when developing on a new feature.
 2. After developing the feature, the developer must request a pull request to the master branch if the test is passed.
 
 3. Developer must follow Standard Coding Style provided by Flake8 and black.
+
+
+## Datanase Configration for PostgreSQL
+
+```psql
+create user muday_user with encrypted password 'muday_password';
+create database muday;
+grant all privileges on database muday to muday_user;
+```

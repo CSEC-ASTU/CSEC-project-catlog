@@ -1,0 +1,248 @@
+{% extends 'dashboard/dashboard_base.html' %} 
+
+{% load static %} 
+
+{% block title %}
+CSEC-ASTU Intern - Project List 
+{% endblock title %}
+
+{% block css %}
+<!-- Dropzone css -->
+<link href="{% static 'plugins/sweet-alert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+<link
+  href="{% static 'plugins/dropzone/dist/dropzone.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock css %}
+
+{% block header %}
+{% include 'dashboard/header.html' %} 
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+  <div class="page-title-box">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h4 class="page-title">Company Creation</h4>
+        </div>
+      </div>
+    </div>
+    <!-- end container-fluid -->
+  </div>
+
+  <div class="page-content-wrapper">
+    <div class="container-fluid">
+        <form class="dropzone" method="POST" id="projectForm" enctype='multipart/form-data'>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">Company Details</h4>
+                            <p class="text-muted m-b-30">Please enter the company details </p>
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label>Name*</label>
+                                    <input type="text" name="name" class="form-control" required placeholder="Company Name"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Phone Number*</label>
+                                    <div>
+                                        <input parsley-type="number" name="phone_number" type="tel" class="form-control"
+                                                required placeholder="Phone Number"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description*</label>
+                                    <div>
+                                        <textarea required maxlength="225" data-parsley-maxwords="225" name="description" class="form-control" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address*</label>
+                                    <div>
+                                        <input name="address" type="text" class="form-control"
+                                                required placeholder="Company Adress"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>City*</label>
+                                    <div>
+                                        <input name="city" value="Addis Abeba" type="text" class="form-control"
+                                                required placeholder="Company City"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Country*</label>
+                                    <div>
+                                        <input name="country" value="Ethiopia" type="text" class="form-control"
+                                                required placeholder="Company Country"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Company Logo</label>
+                                    <input type="file" class="filestyle" data-parsley-fileextension="image/*" data-parsley-max-file-size="2100"  name="logo" data-buttonname="btn-secondary">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <h4 class="mt-0 header-title">Company Links</h4>
+                                <p class="text-muted m-b-30">Please enter the company social links </p>
+
+                                <div class="form-group">
+                                    <label>Website</label>
+                                    <div>
+                                        <input parsley-type="url" name="website" type="url" class="form-control"
+                                                placeholder="Company Website"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Facebook</label>
+                                    <div>
+                                        <input parsley-type="url" name="facebook" type="url" class="form-control"
+                                                placeholder="Company Facebook"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Twitter</label>
+                                    <div>
+                                        <input parsley-type="url" name="twitter" type="url" class="form-control"
+                                                placeholder="Company Twitter"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Linkedin</label>
+                                    <div>
+                                        <input parsley-type="url" name="linkedin" type="url" class="form-control"
+                                                placeholder="Company Linkedin"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Instagram</label>
+                                    <div>
+                                        <input parsley-type="url" name="instagram" type="url" class="form-control"
+                                                placeholder="Company Instagram"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Youtube</label>
+                                    <div>
+                                        <input parsley-type="url" name="youtube" type="url" class="form-control"
+                                                placeholder="Company Youtube"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Github</label>
+                                    <div>
+                                        <input parsley-type="url" name="github" type="url" class="form-control"
+                                                placeholder="Company Github"/>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                            Submit
+                                        </button>
+                                        <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+</div>
+
+{% endblock content %}
+
+<!-- Required datatable js -->
+{% block js %}
+
+<script src="{% static 'plugins/moment/moment.js' %}"></script>
+<script src="{% static 'plugins/parsleyjs/parsley.min.js' %}"></script>
+
+<script src="{% static 'plugins/bootstrap-md-datetimepicker/js/moment-with-locales.min.js' %}"></script>
+
+<!-- Plugins js -->
+<script src="{% static 'plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' %}"></script>
+
+<script src="{% static 'plugins/bootstrap-md-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
+
+<script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-maxlength/bootstrap-maxlength.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js' %}"></script>
+
+<!-- Sweet-Alert  -->
+<script src="{% static 'plugins/sweet-alert2/sweetalert2.min.js' %} "></script>
+<script src="{% static 'pages/sweet-alert.init.js' %}"></script>
+
+<script src="{% static 'pages/form-advanced.js' %}"></script>
+
+<script>
+    var images = [];
+    $(document).ready(function() {
+        $('#projectForm').parsley();
+
+        window.Parsley.addValidator('maxFileSize', {
+            validateString: function(_value, maxSize, parsleyInstance) {
+              if (!window.FormData) {
+                alert('You are making all developpers in the world cringe. Upgrade your browser!');
+                return true;
+              }
+              var files = parsleyInstance.$element[0].files;
+              console.log("Error")
+              return files.length != 1  || files[0].size <= maxSize * 1024;
+            },
+            requirementType: 'integer',
+            messages: {
+              en: 'This file should not be larger than %s Kb',
+              fr: 'Ce fichier est plus grand que %s Kb.'
+            }
+        });
+
+        window.Parsley.addValidator('fileextension', {
+            // Validate the file is an image
+            validateString: function(_value, extension, parsleyInstance) {
+                const fileExt = _value.split('.')
+                const imgfileExtensions = ['jpg', 'jpeg', 'png'];
+                // check if the file extension is in the list of allowed extensions
+                return imgfileExtensions.includes(fileExt[fileExt.length - 1]);
+            }
+        }).addMessage('en', 'fileextension', 'Only Images are allowed to upload.');
+
+          
+
+    });
+</script>
+<script>
+</script>
+
+{% endblock js %}

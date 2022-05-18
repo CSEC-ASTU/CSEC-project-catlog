@@ -20,14 +20,14 @@ class ModelTestCases(TestCase):
 
     def test_valid_rating_creation(self):
         rating = Rating.objects.create(
-            emoji="😀",
+            rating=5,
             created_by=self.user,
             deleted_by=self.user,
             is_deleted=False,
             id=2,
         )
         self.assertEqual(rating.id, 2)
-        self.assertEqual(rating.emoji, "😀")
+        self.assertEqual(rating.rating, 5)
         self.assertEqual(rating.created_by, self.user)
         self.assertTrue(rating.is_deleted == False)
         self.assertEqual(rating.deleted_by, self.user)

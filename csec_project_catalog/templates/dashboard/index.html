@@ -1,0 +1,245 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block title %} 
+CSEC-ASTU Intern - Dashboard 
+{% endblock title %}
+
+{% block header %}
+{% include 'dashboard/header.html' %}
+{% endblock %}
+{% block content %}
+<!-- page wrapper start -->
+<div class="wrapper">
+    <div class="page-title-box">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Dashboard</h4>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">Welcome to CSEC-ASTU Intern Dashboard</li>
+                    </ol>
+                    <a href="{% url 'project-create' %}" class="btn btn-primary">Create Project</a>
+                    {% if user.is_staff %}
+                    <a href="{% url 'company-create' %}" class="btn btn-primary">Create Company</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- end container-fluid -->
+    
+    </div>
+    <!-- page-title-box -->
+
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary mini-stat position-relative">
+                        <div class="card-body">
+                            <div class="mini-stat-desc">
+                                <h6 class="text-uppercase verti-label text-white-50">Projects</h6>
+                                <div class="text-white">
+                                    <h6 class="text-uppercase mt-0 text-white-50">Projects</h6>
+                                    <h3 class="mb-3 mt-0">+ {{ total_project }}</h3>
+                                    {% comment %} <div class="">
+                                        <span class="badge badge-light text-info"> +11% </span> <span class="ml-2">From previous period</span>
+                                    </div> {% endcomment %}
+                                </div>
+                                <div class="mini-stat-icon">
+                                    <i class="mdi mdi-cube-outline display-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary mini-stat position-relative">
+                        <div class="card-body">
+                            <div class="mini-stat-desc">
+                                <h6 class="text-uppercase verti-label text-white-50">Talents</h6>
+                                <div class="text-white">
+                                    <h6 class="text-uppercase mt-0 text-white-50">Talents</h6>
+                                    <h3 class="mb-3 mt-0">+ {{ total_talents }}</h3>
+                                    {% comment %} <div class="">
+                                        <span class="badge badge-light text-danger"> -29% </span> <span class="ml-2">From previous period</span>
+                                    </div> {% endcomment %}
+                                </div>
+                                <div class="mini-stat-icon">
+                                    <i class="mdi mdi-buffer display-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary mini-stat position-relative">
+                        <div class="card-body">
+                            <div class="mini-stat-desc">
+                                <h6 class="text-uppercase verti-label text-white-50">Companies</h6>
+                                <div class="text-white">
+                                    <h6 class="text-uppercase mt-0 text-white-50">Companies</h6>
+                                    <h3 class="mb-3 mt-0">+ {{ total_companies }}</h3>
+                                    {% comment %} <div class="">
+                                        <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From previous period</span>
+                                    </div> {% endcomment %}
+                                </div>
+                                <div class="mini-stat-icon">
+                                    <i class="mdi mdi-tag-text-outline display-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary mini-stat position-relative">
+                        <div class="card-body">
+                            <div class="mini-stat-desc">
+                                <h6 class="text-uppercase verti-label text-white-50">Interns</h6>
+                                <div class="text-white">
+                                    <h6 class="text-uppercase mt-0 text-white-50">Interns</h6>
+                                    <h3 class="mb-3 mt-0">0</h3>
+                                    {% comment %} <div class="">
+                                        <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
+                                    </div> {% endcomment %}
+                                </div>
+                                <div class="mini-stat-icon">
+                                    <i class="mdi mdi-briefcase-check display-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title mb-3">Recent Registered Companies</h4>
+                            <div class="inbox-wid">
+                                {% for company in recently_added_companies %}
+                                <a href="{% url 'company-detail' company.id %}" class="text-dark">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img float-left mr-3"><img src="{% if company.logo %} {{ company.logo.url }} {% endif %}" class="thumb-md rounded-circle" alt="{{ company.name}} Logo"></div>
+                                        <h6 class="inbox-item-author mt-0 mb-1">{{ company.name }}</h6>
+                                        <p class="inbox-item-text text-muted mb-0">{{ company.get_short_description }}...</p>
+                                        <p class="inbox-item-date text-muted">{{ company.get_human_redable_date }}</p>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title mb-4">Recent Added Project</h4>
+                            {% if recent_projects %}
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <tbody>
+                                        {% for project in recent_projects %}
+                                        <tr>
+                                            <td>
+                                                <h6 class="mt-0">{{ project.title }}</h6>
+                                                <p class="text-muted mb-0">by {{ project.user.get_full_name }}</p>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <span class="mb-0">{{ project.get_human_redable_date }}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h6 class="mt-0">7/10</h6>
+                                                <p class="text-muted mb-0">Rate</p>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <a href="{% url 'project-details' project.id %}" class="btn btn-primary btn-sm">View</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <div class="text-center">
+                                <h4 class="mt-0 header-title mb-4">No Recent Project</h4>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title mb-4">Your Recently Added Projects</h4>
+                            {% if your_recente_projects %}
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">(#) Id</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col" colspan="2">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for project in your_recente_projects %}
+                                        <tr>
+                                        <th scope="row">#{{ project.id }}</th>
+                                        <td>
+                                            <div>
+                                                <img src="{{ project.get_cover_image.image.url }}" alt="" class="thumb-md rounded-circle mr-2"> {{ project.title }}
+                                            </div>
+                                        </td>
+                                        <td>{{ project.get_human_redable_date }}</td>
+                                        <td>
+                                            {% if project.is_approved %}
+                                            <span class="badge badge-success">
+                                            Approved
+                                            </span>
+                                            {% else %}
+                                            <span class="badge badge-danger">
+                                                Pending
+                                            </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <a href="{% url 'project-details' project.id %}" class="btn btn-primary btn-sm">View</a>
+                                            </div>
+                                        </td>
+                                        </tr>   
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                            <div class="text-center">
+                                <h4 class="mt-0 header-title mb-4">No Recent Project</h4>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container-fluid -->
+    </div>
+    <!-- end page content-->
+
+</div>
+<!-- page wrapper end -->
+
+{% endblock content %}

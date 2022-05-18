@@ -46,8 +46,26 @@ class Company(models.Model):
         related_name="companies_updated",
     )
 
+    class Meta:
+        ordering = ["-updated_at", "-created_at"]
+
     def __str__(self):
         return self.name
 
-    class Meta:
-        ordering = ["-updated_at", "-created_at"]
+    @property
+    def get_human_redable_date(self):
+        """Get the human readable date of the project.
+
+        Returns:
+            str: human readable date of the project
+        """
+        return self.created_at.strftime("%d %b %Y")
+
+    @property
+    def get_short_description(self):
+        """Get the short description of the project.
+
+        Returns:
+            str: short description of the project
+        """
+        return self.description[:80] if self.description else ""

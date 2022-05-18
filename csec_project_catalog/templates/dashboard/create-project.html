@@ -1,0 +1,219 @@
+{% extends 'dashboard/dashboard_base.html' %} 
+
+{% load static %} 
+
+{% block title %}
+CSEC-ASTU Intern - Project List 
+{% endblock title %}
+
+{% block css %}
+<!-- Dropzone css -->
+<link href="{% static 'plugins/sweet-alert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+<link
+  href="{% static 'plugins/dropzone/dist/dropzone.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock css %}
+
+{% block header %}
+{% include 'dashboard/header.html' %} 
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+  <div class="page-title-box">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <h4 class="page-title">My Project Creation</h4>
+        </div>
+      </div>
+    </div>
+    <!-- end container-fluid -->
+  </div>
+
+  <div class="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="card m-b-20">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">Project Images</h4>
+                        <p class="text-muted m-b-30">You can add multiple images</p>
+
+                        <div class="m-b-30">
+                            <form class="dropzone" action="{% url 'project-image' %}" id="upload-image">
+                                <div class="fallback">
+                                    <input type="file" multiple="multiple">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="card m-b-20">
+                    <div class="card-body">
+
+                        <h4 class="mt-0 header-title">Project Details</h4>
+                        <p class="text-muted m-b-30">Enter the project details </p>
+
+                        <form class="" method="POST" id="projectForm">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" name="title" class="form-control" required placeholder="Project Title"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Project Link</label>
+                                <div>
+                                    <input parsley-type="url" name="project_link" type="url" class="form-control"
+                                            required placeholder="Project URL"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Github Link</label>
+                                <div>
+                                    <input parsley-type="url" name="github_link" type="url" class="form-control"
+                                            required placeholder="Github URL"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <div>
+                                    <textarea required placeholder="Description of the project" maxlength="225" name="description" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                        Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+{% endblock content %}
+
+<!-- Required datatable js -->
+{% block js %}
+
+<script src="{% static 'plugins/moment/moment.js' %}"></script>
+<script src="{% static 'plugins/dropzone/dist/dropzone.js' %}"></script>
+<script src="{% static 'plugins/parsleyjs/parsley.min.js' %}"></script>
+
+<script src="{% static 'plugins/bootstrap-md-datetimepicker/js/moment-with-locales.min.js' %}"></script>
+
+<!-- Plugins js -->
+<script src="{% static 'plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' %}"></script>
+
+<script src="{% static 'plugins/bootstrap-md-datetimepicker/js/bootstrap-material-datetimepicker.js' %}"></script>
+
+<script src="{% static 'plugins/select2/js/select2.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-maxlength/bootstrap-maxlength.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js' %}"></script>
+
+<!-- Sweet-Alert  -->
+<script src="{% static 'plugins/sweet-alert2/sweetalert2.min.js' %} "></script>
+<script src="{% static 'pages/sweet-alert.init.js' %}"></script>
+
+<script src="{% static 'pages/form-advanced.js' %}"></script>
+
+
+<script>
+    var images = [];
+    Dropzone.autoDiscover = false;
+    $(document).ready(function() {
+        var uploadImage = new Dropzone("#upload-image", {
+            url: "{% url 'project-image' %}",
+            dictDefaultMessage: "Drop Project Images here to upload",
+            autoProcessQueue: true,
+            maxFiles: 2,
+            maxFilesize: 10,
+            // acceptedFiles: "image/*",
+            addRemoveLinks: true,
+            parallelUploads: 10,
+            paramName: "image",
+            accept: function(file, done) {
+                // only image files allowed
+                if (!file.type.match('image/*')) {
+                    done("Only images are allowed!");
+                } else {
+                    done();
+                }
+            },
+            init: function() {
+                this.on("removedfile", function(file) {
+                    // Remove item form the array 
+                    var index = images.indexOf(file.id);
+                    if (index > -1) {
+                        images.splice(index, 1);
+                    }
+                });
+                this.on("success", function(file, response) {
+                    file.id = response.image_id;
+                    images.push(response.image_id)
+                    console.log(response.image_id)
+                });
+                this.on("error", function(file, response) {
+                    console.log(response);
+                    // Notify the error
+                    swal({
+                        title: "Error",
+                        text: "Only images are allowed and image size less than 2MB!",
+                        type: "error",
+                        confirmButtonText: "Ok"
+                    });
+                });
+            },
+        });
+        $('#projectForm').parsley();
+        $('#projectForm').submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var formData = new FormData(form[0]);
+            formData.append('images', JSON.stringify(images));
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    swal("Success", data.message, "success");
+                    setTimeout(function() {
+                        window.location.href = "{% url 'project-list' %}";
+                    }, 2000);
+                },
+                error: function(data) {
+                    console.log(data);
+                    swal("Error", "Something went wrong", "error");
+                }
+            });
+        });
+
+
+
+    });
+</script>
+<script>
+</script>
+
+{% endblock js %}

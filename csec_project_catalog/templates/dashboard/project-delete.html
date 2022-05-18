@@ -1,0 +1,80 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block title %} 
+CSEC-ASTU Intern - Project Details
+{% endblock title %}
+{% block css %}
+<link href="{% static 'plugins/magnific-popup/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'plugins/sweet-alert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+{% endblock css %}
+
+{% block header %}
+{% include 'dashboard/header.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="wrapper">
+    <div class="page-title-box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Project Details</h4>
+                    <a href="{% url 'project-list' %}" class="btn btn-primary">Create Project</a>
+                </div>
+            </div>
+        </div>
+        <!-- end container-fluid -->
+    
+    </div>
+    <!-- page-title-box -->
+    
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            {% if project %}
+                                <h4 class="mt-0 header-title">{{ project.title }}</h4>
+                                <p class="text-muted m-b-30">{{ project.description }} </p>
+                                {% if project.images.all %}
+                                <div class="popup-gallery">
+                                    {% for image in project.images.all %}
+                                    <a class="float-left" href="{{ image.image.url }}" title="Image {{ forloop.counter }}">
+                                        <div class="img-responsive">
+                                            <img src="{{ image.image.url }}" alt="" width="300">
+                                        </div>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            {% else %}
+                            <h4 class="mt-0 header-title">No Project Found</h4>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                </div> <!-- end col -->
+                <div class="col-12">
+                    <a class="btn btn-danger mo-mb-2" id="sa-warning" href="#">Delete</a>
+                </div>
+            </div> <!-- end row -->
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Required datatable js -->
+{% block js %}
+
+<script src="{% static 'plugins/moment/moment.js' %}"></script>
+<script src="{% static 'plugins/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'pages/lightbox.js' %}"></script>
+<!-- Sweet-Alert  -->
+<script src="{% static 'plugins/sweet-alert2/sweetalert2.min.js' %} "></script>
+<script src="{% static 'pages/sweet-alert.init.js' %}"></script>
+
+{% endblock js %}

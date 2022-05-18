@@ -1,0 +1,163 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block title %} 
+CSEC-ASTU Intern - Profile Update
+{% endblock title %}
+
+{% block css %}
+<link href="{% static 'plugins/sweet-alert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">
+<link type="text/css" href="{% static 'plugins/x-editable/css/bootstrap-editable.css' %}" rel="stylesheet">
+<meta name="csrf-token" content="{{ csrf_token }}">
+{% endblock css %}
+
+{% block header %}
+{% include 'dashboard/header.html' %}
+{% endblock %}
+{% block content %}
+<!-- page wrapper start -->
+<div class="wrapper">
+    <div class="page-title-box">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Profile</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end container-fluid -->
+    
+    </div>
+    <!-- page-title-box -->
+
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+
+                            <h4 class="mt-0 header-title">Profile Details</h4>
+                            <p class="text-muted m-b-30 font-14">
+                                Below details are editable field. Click on the text .
+                            </p>
+
+                            <form method="post" id="user_form">
+                            <table class="table table-striped mb-0">
+                                <tbody>
+                                <tr>
+                                    <td>First Name *</td>
+                                    <td>
+                                        <a id="inline-firstname" data-type="text" name="first_name" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your firstname">
+                                            {{ user.first_name }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name *</td>
+                                    <td>
+                                        <a id="inline-lastname" data-type="text" name="last_name" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your LastName">
+                                            {{ user.last_name }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone Number *</td>
+                                    <td>
+                                        <a id="inline-phonenumber" data-type="text" name="phone_number" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your Phone Number">
+                                            {{ user.phone_number }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>
+                                        <a href="#" id="inline-sex" data-type="select" data-pk="1" data-value="{% if user.gender == 'male' %} 1 {% else %} 2 {% endif %} " data-title="Select sex">
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Birthday</td>
+                                    <td>
+                                        <a href="#" id="inline-dob" data-type="combodate" data-value="{% if user.dob %} {{ user.dob }} {% endif%}" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY" data-pk="1"  data-title="Select Date of birth"></a>
+                                    </td>
+                                </tr>
+                                <!-- User Social links -->
+                                <tr>
+                                    <td>Facebook</td>
+                                    <td>
+                                        <a href="#" id="inline-facebook" data-type="text" data-pk="1" data-placement="right" data-placeholder="Facebook" data-title="Facebook">
+                                            {{ user.facebook|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Instagram</td>
+                                    <td>
+                                        <a href="#" id="inline-instagram" data-type="text" data-pk="1" data-placement="right" data-placeholder="Instagram" data-title="Instagram">
+                                            {{ user.instagram|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% comment %} Linkedin {% endcomment %}
+                                <tr>
+                                    <td>Linkedin</td>
+                                    <td>
+                                        <a href="#" id="inline-linkedin" data-type="text" data-pk="1" data-placement="right" data-placeholder="Linkedin" data-title="Linkedin">
+                                            {{ user.linkedin|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Github</td>
+                                    <td>
+                                        <a href="#" id="inline-github" data-type="text" data-pk="1" data-placement="right" data-placeholder="Twitter" data-title="Twitter">
+                                            {{ user.github|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Website</td>
+                                    <td>
+                                        <a href="#" id="inline-website" data-type="text" data-pk="1" data-placement="right" data-placeholder="Website" data-title="Website">
+                                            {{ user.website|default_if_none:'' }}
+                                        </a>
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row --> 
+        </div>
+        <!-- end container-fluid -->
+    </div>
+    <!-- end page content-->
+
+</div>
+<!-- page wrapper end -->
+{% endblock content %}
+
+{% block js %}
+
+<script src="{% static 'plugins/moment/moment.js' %}"></script>
+<script src="{% static 'plugins/x-editable/js/bootstrap-editable.min.js' %}"></script>
+<script src="{% static 'pages/xeditable.js' %}"></script>
+<!-- Sweet-Alert  -->
+<script src="{% static 'plugins/sweet-alert2/sweetalert2.min.js' %} "></script>
+<script src="{% static 'pages/sweet-alert.init.js' %}"></script>
+
+<script src="{% static 'js/forms.js' %}"></script>
+
+{% endblock js %}

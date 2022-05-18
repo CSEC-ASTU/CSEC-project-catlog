@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Registration
+{% endblock title %}
+
+{% block content %}
+<!-- Background -->
+<div class="account-pages"id="p-3"></div>
+
+<!-- Begin page -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card" >
+                <div class="card-body" id="register-card">
+
+                    <h3 class="text-center m-0">
+                        <a href="index.html" class="logo logo-admin" ><img src="{% static 'images/csec.png' %}" height="80" alt="logo"></a>
+                    </h3>
+
+                    <div class="p-2" >
+                        <h4 class="text-muted font-18 m-b-5 text-center" >Sign up - CSEC-INTERN</h4>
+                        
+                        {% if user_form.non_field_errors %}
+                        <div class="alert-danger">
+                            <ul>
+                                {{ user_form.non_field_errors }}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <form class="form-horizontal m-t-5 needs-validation" method="POST" novalidate>
+                            {% csrf_token %}
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="first_name">First Name</label>
+                                    <input
+                                        type="text" class="form-control {% if user_form.first_name.errors %} is-invalid {% endif %}"
+                                        id="first_name"
+                                        name="first_name"
+                                        placeholder="First Name"
+                                        value="{{ user_form.first_name.value|default_if_none:'' }}"
+                                        required
+                                    >
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.first_name.errors %}
+                                            {{ user_form.first_name.errors }}
+                                        {% else %}
+                                            Please enter your first name.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="last_name">Last Name</label>
+                                    <input
+                                        type="text" 
+                                        class="form-control {% if user_form.last_name.errors %} is-invalid {% endif %}"
+                                        id="last_name"
+                                        name="last_name"
+                                        placeholder="Last Name"
+                                        value="{{ user_form.last_name.value|default_if_none:'' }}"
+                                        required
+                                    >
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.last_name.errors %}
+                                            {{ user_form.last_name.errors }}
+                                        {% else %}
+                                            Please enter your last name.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="Username">Username</label>
+                                    <input
+                                        type="text"
+                                        class="form-control {% if user_form.username.errors %} is-invalid {% endif %}"
+                                        id="Username"
+                                        name="username"
+                                        placeholder="Username" 
+                                        value="{{ user_form.username.value|default_if_none:'' }}"
+                                        required
+                                    >
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.username.errors %}
+                                            {{ user_form.username.errors }}
+                                        {% else %}
+                                            Please enter your username.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="email">Email</label>
+                                    <input
+                                        type="email"
+                                        class="form-control {% if user_form.email.errors %} is-invalid {% endif %}"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Email"
+                                        value="{{ user_form.email.value|default_if_none:'' }}"
+                                        required
+                                    >
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.email.errors %}
+                                            {{ user_form.email.errors }}
+                                        {% else %}
+                                            Please enter your email.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="password">Password</label>
+                                    <input
+                                        type="password"
+                                        class="form-control {% if user_form.password.errors %} is-invalid {% endif %}"
+                                        name="password"
+                                        id="password"
+                                        placeholder="Password"
+                                        required
+                                    >
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.password.errors %}
+                                            {{ user_form.password.errors }}
+                                        {% else %}
+                                            Please enter your password.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="password2">Confirm Password</label>
+                                    <input
+                                        type="password"
+                                        class="form-control {% if user_form.password2.errors %} is-invalid {% endif %}"
+                                        name="password2"
+                                        id="password2"
+                                        placeholder="Confirm Password" 
+                                        required
+                                    >
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.password2.errors %}
+                                            {{ user_form.password2.errors }}
+                                        {% else %}
+                                            Please enter your confirmation password.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="phone">Phone</label>
+                                    <input
+                                        type="tel"
+                                        class="form-control {% if user_form.phone_number.errors %} is-invalid {% endif %}"
+                                        name="phone_number"
+                                        id="phone"
+                                        placeholder="Enter phone number"
+                                        value="{{ user_form.phone_number.value|default_if_none:'' }}"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.phone_number.errors %}
+                                            {{ user_form.phone_number.errors }}
+                                        {% else %}
+                                            Please enter your phone number.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="birthday">Birthdate</label>
+                                    <input
+                                        type="date"
+                                        class="form-control {% if user_form.birthday.errors %} is-invalid {% endif %}"
+                                        id="birthday"
+                                        name="birthday"
+                                        value="{{ user_form.birthday.value|default_if_none:''|date:'m-d-Y' }}"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.birthday.errors %}
+                                            {{ user_form.birthday.errors }}
+                                        {% else %}
+                                            Please enter your birthdate.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="gender">Gender</label>
+                                    <select 
+                                        id="gender"
+                                        name="gender" 
+                                        class="form-control {% if user_form.gender.errors %} is-invalid {% endif %}">
+                                        <option value="male" {% if user_form.gender.value == 'male' %} selected {% endif %}>Male</option>
+                                        <option value="female" {% if user_form.gender.value == 'female' %} selected {% endif %} >Female</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        {% if  user_form.gender.errors %}
+                                            {{ user_form.gender.errors }}
+                                        {% else %}
+                                            Please select your gender.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                  I accept the <a href="https://google.com">Terms and Service</a> of the website.
+                                </label>
+                              </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="news" checked name="news" on>
+                                <label class="form-check-label" for="news">
+                                  I want to recieve updates and news from the website.
+                                </label>
+                            </div>
+                            <br />
+
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+
+                            <div class="form-group m-t-10 mb-0 row">
+                                <div class="m-t-40 text-center">
+                                    <p class="text-muted">Already have an account ? <a href="{% url 'login' %}" class="text">Login </a> </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'js/waves.min.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js" integrity="sha512-3PRVLmoBYuBDbCEojg5qdmd9UhkPiyoczSFYjnLhFb2KAFsWWEMlAPt0olX1Nv7zGhDfhGEVkXsu51a55nlYmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- App js -->
+<script src="{% static 'js/app.js' %}"></script>
+<script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>{% endblock js %}

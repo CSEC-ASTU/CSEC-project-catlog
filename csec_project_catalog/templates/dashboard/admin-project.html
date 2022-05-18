@@ -1,0 +1,163 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block title %} 
+CSEC-ASTU Intern - Project List
+{% endblock title %}
+
+{% block header %}
+{% include 'dashboard/header.html' %}
+<style>
+    .score {
+        display: block;
+        font-size: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .score-wrap {
+        display: inline-block;
+        position: relative;
+        height: 19px;
+      }
+      
+      .score .stars-active {
+        color: #EEBD01;
+        position: relative;
+        z-index: 10;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .score .stars-inactive {
+        color: grey;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-text-stroke: initial;
+        /* overflow: hidden; */
+    } 
+</style>
+
+{% endblock %}
+{% block content %}
+
+<div class="wrapper">
+    <div class="page-title-box">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Project List</h4>
+                    <a href="{% url 'project-create' %}" class="btn btn-primary">Create Project</a>
+                </div>
+            </div>
+        </div>
+        <!-- end container-fluid -->
+    
+    </div>
+    <!-- page-title-box -->
+
+    <div class="page-content-wrapper">
+        <div class="container-fluid">
+            {% if projects %}
+            <div class="row">
+                {% for project in projects %}
+                <div class="col-md-6 col-lg-6 col-xl-4">
+                    <!-- Simple card -->
+                    <div class="card m-b-30">
+                        <img class="card-img-top img-fluid d-block mx-auto" src="{{ project.get_cover_image.image.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title font-16 mt-0">{{ project.title }}</h4>
+                            <p class="card-text">{{ project.get_short_description }}</p>
+                            <blockquote class="blockquote mb-0">
+                                <span class="score">
+                                    <div class="score-wrap">
+                                        <span class="stars-active" style="width:40%">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="stars-inactive">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
+                                </div>
+                                </span>
+                                <footer class="blockquote-footer">Project Rating</footer>
+                            </blockquote>
+                            {% if project.user == user %}
+                                {% if project.is_approved %}
+                                <span class="badge badge-success">
+                                    Approved
+                                </span>
+                                {% else %}
+                                <span class="badge badge-danger">
+                                    Pending
+                                </span>
+                                {% endif %}
+                            {% endif %}
+                            <a href="{% url 'project-details' project.id %}" class="btn btn-primary waves-effect waves-light">Show Detail</a>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+                {% endfor %}
+            </div> <!-- end row -->
+            {% if is_paginated %}
+            <nav aria-label="...">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">{{ page_obj.number }}<span class="sr-only">(current)</span></a>
+                    </li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number }}">Next</a></li>
+                    {% endif %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+                    
+                </ul>
+            </nav>
+            {% endif %}
+            {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <h3 class="text-muted text-uppercase m-t-0 m-b-30">No Project Found</h3>
+                                    <a href="{% url 'project-create' %}" class="btn btn-primary waves-effect waves-light m-b-5">Create Project</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+        </div>
+        <!-- end container-fluid -->
+    </div>
+    <!-- end page content-->
+
+</div>
+
+{% endblock content %}
+
+<!-- Required datatable js -->
+{% block js %}
+
+<script src="{% static 'plugins/moment/moment.js' %}"></script>
+
+<script src="{% static 'js/forms.js' %}"></script>
+
+{% endblock js %}

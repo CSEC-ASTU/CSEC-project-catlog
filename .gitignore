@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -129,4 +128,7 @@ dmypy.json
 .pyre/
 plan.md
 csec_project_catalog/.env
+csec_project_catalog/media/
 .vscode/settings.json
+
+csec-intern.pem
