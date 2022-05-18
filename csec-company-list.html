@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+     
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Themesbrand" name="author" />
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+        
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/icons.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar-->
+        <header id="topnav">
+            <div class="topbar-main">
+                <div class="container-fluid">
+
+                    <!-- Logo container-->
+                    <div class="logo">
+                        
+                        <a href="index.html" class="logo">
+                            <img src="assets/images/csec.png" alt="" class="logo-small">
+                            <img src="assets/images/csec.png" alt="" class="logo-large">
+                        </a>
+
+                    </div>
+
+                    <!-- End Logo container-->
+
+
+                    <div class="menu-extras topbar-custom">
+
+                        <ul class="navbar-right d-flex list-inline float-right mb-0">
+                            <li class="dropdown notification-list d-none d-sm-block">
+                                <form role="search" class="app-search">
+                                    <div class="form-group mb-0"> 
+                                        <input type="text" class="form-control" placeholder="Search..">
+                                        <button type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form> 
+                            </li>
+    
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <i class="mdi mdi-bell noti-icon"></i>
+                                    <span class="badge badge-pill badge-info noti-icon-badge">3</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                                    <!-- item-->
+                                    <h6 class="dropdown-item-text">
+                                        Notifications (37)
+                                    </h6>
+                                    <div class="slimscroll notification-item-list">
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                                            <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
+                                            <p class="notify-details">Your order is placed<span class="text-muted">Dummy text of the printing and typesetting industry.</span></p>
+                                        </a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-warning"><i class="mdi mdi-message"></i></div>
+                                            <p class="notify-details">New Message received<span class="text-muted">You have 87 unread messages</span></p>
+                                        </a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-info"><i class="mdi mdi-flag"></i></div>
+                                            <p class="notify-details">Your item is shipped<span class="text-muted">It is a long established fact that a reader will</span></p>
+                                        </a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-primary"><i class="mdi mdi-cart-outline"></i></div>
+                                            <p class="notify-details">Your order is placed<span class="text-muted">Dummy text of the printing and typesetting industry.</span></p>
+                                        </a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-danger"><i class="mdi mdi-message"></i></div>
+                                            <p class="notify-details">New Message received<span class="text-muted">You have 87 unread messages</span></p>
+                                        </a>
+                                    </div>
+                                    <!-- All-->
+                                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
+                                        View all <i class="fi-arrow-right"></i>
+                                    </a>
+                                </div>        
+                            </li>
+                            <li class="dropdown notification-list">
+                                <div class="dropdown notification-list">
+                                    <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                        <img src="assets/images/users/user-4.jpg" alt="user" class="rounded-circle">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                        <!-- item-->
+                                        <a class="dropdown-item" href="csec-profile.html"><i class="mdi mdi-account-circle m-r-5"></i> Profile</a>
+                                        <a class="dropdown-item" href="#"><i class="mdi mdi-clipboard m-r-5"></i>Edit profile</a>
+                                        <!-- <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings m-r-5"></i> Settings</a>
+                                        <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5"></i> Lock screen</a> -->
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-danger" href="csec-login.html"><i class="mdi mdi-power text-danger"></i> Logout</a>
+                                    </div>                                                                    
+                                </div>
+                            </li>
+                            
+                            <li class="menu-item list-inline-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+
+                        </ul>
+    
+    
+    
+                    </div>
+                    <!-- end menu-extras -->
+
+                    <div class="clearfix"></div>
+
+                </div> 
+            </div>
+            <!-- end topbar-main -->
+            <div class="navbar-custom">
+                <div class="container-fluid">
+                    <div id="navigation">
+                        <!-- Navigation Menu-->
+                        <ul class="navigation-menu">
+
+                            <li class="has-submenu">
+                                <a href="index.html"><i class="mdi mdi-home"></i>Dashboard</a>
+                            </li>
+
+                            <li class="has-submenu">
+                                <a href="csec-company-list.html"><i class="mdi mdi-buffer"></i>Company list</a>
+                             
+
+                          <li class="has-submenu">
+                                <a href="csec-projectCatalog.html"><i class="mdi mdi-flag"></i>projects</a>
+                            </li>
+                                      
+                                  
+                               
+
+                            <li class="has-submenu">
+                                <a href="csec-update-profile.html"><i class="mdi mdi-clipboard"></i>Edit profile</a>
+                              
+                            </li>
+
+                            <!-- <li class="has-submenu">
+                                <a href="#"><i class="mdi mdi-finance"></i>Charts</a>
+                                
+                            </li> -->
+
+                           
+                                  
+
+
+                
+                        <!-- End navigation menu -->
+                    </div> <!-- end #navigation -->
+                </div> <!-- end container -->
+            </div> <!-- end navbar-custom -->
+        </header>
+        <!-- End Navigation Bar-->
+
+       <!--page wrapper start -->
+        <div class="wrapper">
+            <div class="page-title-box">
+                <div class="container-fluid">
+
+                
+                            <h4 class="page-title">Company listing page</h4>
+                            <!-- <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Agroxa</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
+                                <li class="breadcrumb-item active"></li>
+                            </ol> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end container-fluid -->
+            
+            </div>
+            <!-- page-title-box -->
+
+            <div class="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card directory-card m-b-20">
+                                <div class="card-body directory-card-bg">
+                                    <div class="clearfix">
+                                        <div class="directory-img float-left mr-4">
+                                            <img class="rounded-circle thumb-lg img-thumbnail" src="assets/images/users/user-3.jpg" alt="Generic placeholder image">
+                                        </div>
+                                        <h5 class="font-16 mt-0">Company  1</h5>
+                                        <p class="text-muted mb-2">Creative Director</p>
+                                        
+                                        <p class="text-muted">
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star"></span>
+                                        </p>
+                                    </div>
+                                    <div class="directory-content mt-4">
+                                        <p class="text-muted mb-5">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul class="social-links list-inline mb-0 p-2">
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="linkedin"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-danger tooltips" data-toggle="tooltip" href="" data-original-title="website"><i class="fas fa-globe" ></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="github"><i class="fab fa-github"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-primary tooltips" data-toggle="tooltip" href="" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="email"> <i class="fa fa-envelope" aria-hidden="true"></i></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card directory-card m-b-20">
+                                <div class="card-body directory-card-bg">
+                                    <div class="clearfix">
+                                        <div class="directory-img float-left mr-4">
+                                            <img class="rounded-circle thumb-lg img-thumbnail" src="assets/images/users/user-3.jpg" alt="Generic placeholder image">
+                                        </div>
+                                        <h5 class="font-16 mt-0">Company 2</h5>
+                                        <p class="text-muted mb-2">Creative Director</p>
+                                        <p class="text-muted">
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                        </p>
+                                    </div>
+                                    <div class="directory-content mt-4">
+                                        <p class="text-muted mb-5">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul class="social-links list-inline mb-0 p-2">
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="linkedin"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-danger tooltips" data-toggle="tooltip" href="" data-original-title="website"><i class="fas fa-globe" ></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="github"><i class="fab fa-github"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-primary tooltips" data-toggle="tooltip" href="" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="email"> <i class="fa fa-envelope" aria-hidden="true"></i></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card directory-card m-b-20">
+                                <div class="card-body directory-card-bg">
+                                    <div class="clearfix">
+                                        <div class="directory-img float-left mr-4">
+                                            <img class="rounded-circle thumb-lg img-thumbnail" src="assets/images/users/user-4.jpg" alt="Generic placeholder image">
+                                        </div>
+                                        <h5 class="font-16 mt-0">Company 3</h5>
+                                        <p class="text-muted mb-2">Creative Director</p>
+                                        <p class="text-muted">
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star"></span>
+                                        </p>
+                                    </div>
+                                    <div class="directory-content mt-4">
+                                        <p class="text-muted mb-5">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul class="social-links list-inline mb-0 p-2">
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="linkedin"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-danger tooltips" data-toggle="tooltip" href="" data-original-title="website"><i class="fas fa-globe" ></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="github"><i class="fab fa-github"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-primary tooltips" data-toggle="tooltip" href="" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="email"> <i class="fa fa-envelope" aria-hidden="true"></i></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card directory-card m-b-20">
+                                <div class="card-body directory-card-bg">
+                                    <div class="clearfix">
+                                       
+                                        <div class="directory-img float-left mr-4">
+                                            <img class="rounded-circle thumb-lg img-thumbnail" src="assets/images/users/user-5.jpg" alt="Generic placeholder image">
+                                        </div>
+                                        <h5 class="font-16 mt-0">Company 4</h5>
+                                        <p class="text-muted mb-2">Creative Director</p>
+                                        <p class="text-muted">
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                        </p>
+                                    </div>
+                                    <div class="directory-content mt-4">
+                                        <p class="text-muted mb-5">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul class="social-links list-inline mb-0 p-2">
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="linkedin"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-danger tooltips" data-toggle="tooltip" href="" data-original-title="website"><i class="fas fa-globe" ></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="github"><i class="fab fa-github"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-primary tooltips" data-toggle="tooltip" href="" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="email"> <i class="fa fa-envelope" aria-hidden="true"></i></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card directory-card m-b-20">
+                                <div class="card-body directory-card-bg">
+                                    <div class="clearfix">
+                                        <div class="directory-img float-left mr-4">
+                                            <img class="rounded-circle thumb-lg img-thumbnail" src="assets/images/users/user-6.jpg" alt="Generic placeholder image">
+                                        </div>
+                                        <h5 class="font-16 mt-0">Company 5</h5>
+                                        <p class="text-muted mb-2">Creative Director</p>
+                                        <p class="text-muted">
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star"></span>
+                                        </p>
+                                    </div>
+                                    <div class="directory-content mt-4">
+                                        <p class="text-muted mb-5">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul class="social-links list-inline mb-0 p-2">
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="linkedin"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-danger tooltips" data-toggle="tooltip" href="" data-original-title="website"><i class="fas fa-globe" ></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="github"><i class="fab fa-github"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-primary tooltips" data-toggle="tooltip" href="" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="email"> <i class="fa fa-envelope" aria-hidden="true"></i></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6">
+                            <div class="card directory-card m-b-20">
+                                <div class="card-body directory-card-bg">
+                                    <div class="clearfix">
+                                        <div class="directory-img float-left mr-4">
+                                            <img class="rounded-circle thumb-lg img-thumbnail" src="assets/images/users/user-7.jpg" alt="Generic placeholder image">
+                                        </div>
+                                        <h5 class="font-16 mt-0">Company</h5>
+                                        <p class="text-muted mb-2">Creative Director</p>
+                                        <p class="text-muted">
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                            <span class="mdi mdi-star text-warning"></span>
+                                        </p>
+                                    </div>
+                                    <div class="directory-content mt-4">
+                                        <p class="text-muted mb-5">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                                    </div>
+                                    <div class="social-icons">
+                                        <ul class="social-links list-inline mb-0 p-2">
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="linkedin"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-danger tooltips" data-toggle="tooltip" href="" data-original-title="website"><i class="fas fa-globe" ></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="github"><i class="fab fa-github"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-primary tooltips" data-toggle="tooltip" href="" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a title="" data-placement="top" class="btn-info tooltips" data-toggle="tooltip" href="" data-original-title="email"> <i class="fa fa-envelope" aria-hidden="true"></i></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                </div>
+            </div>
+            <!-- end page content-->
+
+        </div>
+        <!-- page wrapper end -->
+
+        
+        <div class="col-lg-6">
+           
+                    
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+              
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+
+        <!-- jQuery  -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/jquery.slimscroll.js"></script>
+        <script src="assets/js/waves.min.js"></script>
+
+        <script src="../plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.js"></script>
+
+    </body>
+
+</html>
