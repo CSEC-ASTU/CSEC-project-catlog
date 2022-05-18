@@ -26,7 +26,6 @@ class User(AbstractUser):
     Returns:
         User Object
     """
-
     email = models.EmailField("email address", unique=True)
     gender = models.CharField(
         max_length=10,

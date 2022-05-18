@@ -13,7 +13,6 @@
       </div>
 
       <!-- End Logo container-->
-      {% if user.is_authenticated %}
       <div class="menu-extras topbar-custom">
         <ul class="navbar-right d-flex list-inline float-right mb-0">
           {% comment %}
@@ -30,6 +29,8 @@
             </form>
           </li>
           {% endcomment %}
+          {% if user.is_authenticated %}
+
 
           <li class="dropdown notification-list">
             <a
@@ -156,6 +157,35 @@
               </div>
             </div>
           </li>
+          {% else %}
+          <!--  Login Button -->
+          <li class="dropdown notification-list">
+            <div class="dropdown notification-list">
+              <a
+                class="dropdown-toggle nav-link arrow-none waves-effect nav-user waves-light"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="false"
+                aria-expanded="false"
+              >
+                <img
+                  src="{% static 'images/users/user-4.jpg' %}"
+                  alt="user"
+                  class="rounded-circle"
+                />
+              </a>
+              <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'login' %}">
+                  <i class="mdi mdi-power"></i> 
+                  Login
+                </a
+                >
+              </div>
+            </div>
+          </li>
+          {% endif %}
 
           <li class="menu-item list-inline-item">
             <!-- Mobile menu toggle-->
@@ -170,7 +200,6 @@
           </li>
         </ul>
       </div>
-      {% endif %}
       <!-- end menu-extras -->
 
       <div class="clearfix"></div>

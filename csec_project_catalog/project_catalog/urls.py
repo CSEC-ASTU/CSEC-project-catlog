@@ -18,6 +18,7 @@ urlpatterns = [
         "projects/<int:pk>/delete", views.DeleteProject.as_view(), name="project-delete"
     ),
     path("projects/<int:pk>/rate", views.ProjectRating.as_view(), name="project-rate"),
+    path("projects/<int:pk>/status", views.ProjectApproval.as_view(), name="project-status"),
     # path("edit/<str:pk>/", views.edit_project, name="edit-project"),
     path("events", views.event_list, name="event-list"),
     path("event/create/", views.create_event, name="create-event"),

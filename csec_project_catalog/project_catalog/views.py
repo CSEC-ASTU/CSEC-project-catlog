@@ -38,7 +38,8 @@ class DashboardView(LoginRequiredMixin, ListView):
             is_deleted=0, is_approved=1
         ).count()
         kwargs["total_talents"] = User.objects.filter(is_deleted=0).count()
-        kwargs["total_companies"] = Company.objects.filter(is_deleted=0).count()
+        kwargs["total_companies"] = Company.objects.filter(
+            is_deleted=0).count()
         kwargs["recent_projects"] = Project.objects.filter(
             is_deleted=0, is_approved=1
         ).order_by("-created_at")[:5]
@@ -60,30 +61,26 @@ class ProjectListView(ListView):
     paginate_by = 10
     filter_fields = ("title",)
     search_fields = ("title",)
+    extra_context = {"page": "all-project"}
 
     def get_queryset(self):
         search = self.request.GET.get("search", None)
+        status = self.request.GET.get("status", None)
         queryset = Project.objects.filter(is_deleted=0)
-        if self.request.user.is_staff:
-            if search:
-                # TODO #22 #21 - add filter for the project status(approved, rejected, pending)
-                return queryset.filter(
-                    Q(title__icontains=search) | Q(description__icontains=search)
-                ).order_by("-created_at")
-
-            return queryset
 
         if search:
-            # TODO - add filter for the project status(approved, rejected, pending)
-            return (
-                queryset.filter(
-                    Q(title__icontains=search) | Q(description__icontains=search)
-                )
-                .filter(is_approved=1)
-                .order_by("-created_at")
+            queryset = queryset.filter(
+                Q(title__icontains=search) | Q(description__icontains=search)
             )
 
-        return Project.objects.filter(is_deleted=0, is_approved=1)
+        # Status filter for all project endpoint is only allowed for admins
+        if self.request.user.is_staff:
+            if status:
+                queryset = queryset.filter(status__iexact=status)
+
+            return queryset.order_by("-created_at")
+
+        return queryset.order_by("status", "-created_at")
 
 
 class ProjectDetails(DetailView):
@@ -128,7 +125,8 @@ class AdminProjectView(LoginRequiredMixin, ListView):
         if search:
             return (
                 queryset.filter(
-                    Q(title__icontains=search) | Q(description__icontains=search)
+                    Q(title__icontains=search) | Q(
+                        description__icontains=search)
                 )
                 .order_by("-created_at")
             )
@@ -151,7 +149,38 @@ def create_project(request):
     return render(request, "create.html", context)
 
 
-class ProjectRating(LoginRequiredMixin, DetailView):
+class ProjectApproval(DetailView):
+    model = Project
+    template_name = "dashboard/project-approval.html"
+    context_object_name = "project"
+    http_method_names = ["post"]
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return JsonResponse({"error": "You are not authorized to perform this action."})
+
+        project = self.get_object()
+        status = request.POST.get("status", None)
+
+        if status == "approved":
+            project.is_approved = True
+            project.status = "approved"
+            project.save()
+            return JsonResponse({"success": "Project has been approved.", "error": False}, status=200)
+        elif status == "rejected":
+            project.is_approved = False
+            project.status = "rejected"
+            project.save()
+            return JsonResponse({"success": "Project has been rejected.", "error": False}, status=200)
+        else:
+            return JsonResponse({"error": "Invalid status."}, status=400)
+
+
+class ProjectRating(DetailView):
     model = Project
     template_name = "dashboard/project-rating.html"
     context_object_name = "project"
@@ -165,11 +194,16 @@ class ProjectRating(LoginRequiredMixin, DetailView):
         project = self.get_object()
         print("request.POST", request.POST)
         rating = request.POST.get("rating")
+
+        if not request.user.is_authenticated:
+            return JsonResponse({"error": "You are not authorized to perform this action."}, status=400)
+
         if not rating.isdigit():
-            return JsonResponse({"error": "Rating must be a number"})
+            return JsonResponse({"error": "Rating must be a number"}, status=400)
 
         if project.rating:
-            previous_rating = project.rating.filter(created_by=request.user).first()
+            previous_rating = project.rating.filter(
+                created_by=request.user).first()
             if previous_rating:
                 previous_rating.rating = rating
                 previous_rating.save()
@@ -184,9 +218,22 @@ class MyProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "dashboard/project-list.html"
     context_object_name = "projects"
+    extra_context = {"page": "my-project"}
 
     def get_queryset(self):
-        return Project.objects.filter(user=self.request.user)
+        search = self.request.GET.get("search", None)
+        status = self.request.GET.get("status", None)
+        queryset = Project.objects.filter(is_deleted=0, user=self.request.user)
+
+        if search:
+            queryset = queryset.filter(
+                Q(title__icontains=search) | Q(description__icontains=search)
+            )
+
+        if status:
+            queryset = queryset.filter(status__iexact=status)
+
+        return queryset.order_by("status", "-created_at")
 
 
 def edit_project(request, pk):
@@ -226,7 +273,7 @@ class DeleteProject(LoginRequiredMixin, TemplateView):
             return JsonResponse(
                 {"error": "Project doesn't exist", "success": False}, status=400
             )
-        
+
         self.object.first().delete()
         return JsonResponse({"error": None, "success": True}, status=200)
 

@@ -12,6 +12,11 @@ from django.db import models
 
 # pylint: disable=too-few-public-methods
 
+PROJECT_STATUS = (
+    ("approved", "approved"),
+    ("pending", "pending"),
+    ("rejected", "rejected"),
+)
 
 class Rating(models.Model):
     """
@@ -104,6 +109,7 @@ class Project(models.Model):
 
     is_deleted = models.BooleanField(default=False, null=True, blank=False)
     is_approved = models.BooleanField(default=False, null=True, blank=False)
+    status = models.CharField(max_length=10, choices=PROJECT_STATUS, default="pending")
     updated_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
@@ -172,7 +178,7 @@ class Project(models.Model):
         """
         if self.rating.count() == 0:
             return 0
-        return round(self.rating.aggregate(models.Avg("rating"))["rating__avg"], 2)
+        return round(self.rating.aggregate(models.Avg("rating"))["rating__avg"], 2) * 20
 
 
 class Event(models.Model):

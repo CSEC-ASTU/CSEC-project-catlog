@@ -50,11 +50,24 @@ CSEC-ASTU Intern - Project List
                 <div class="col-sm-12">
                     <h4 class="page-title">Project List</h4>
                     <a href="{% url 'project-create' %}" class="btn btn-primary">Create Project</a>
+                    {% if page == 'all-project' %}
+                        {% if user.is_staff %}
+                        <a href="?status=" class="btn btn-info">All Project</a>
+                        <a href="?status=approved" class="btn btn-success">Approved Project</a>
+                        <a href="?status=pending" class="btn btn-secondary">Pending Project</a>
+                        <a href="?status=rejected" class="btn btn-danger">Declined Project</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="?status=" class="btn btn-info">All Project</a>
+                        <a href="?status=approved" class="btn btn-success">Approved Project</a>
+                        <a href="?status=pending" class="btn btn-secondary">Pending Project</a>
+                        <a href="?status=rejected" class="btn btn-danger">Declined Project</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
         <!-- end container-fluid -->
-    
+
     </div>
     <!-- page-title-box -->
 
@@ -70,10 +83,11 @@ CSEC-ASTU Intern - Project List
                         <div class="card-body">
                             <h4 class="card-title font-16 mt-0">{{ project.title }}</h4>
                             <p class="card-text">{{ project.get_short_description }}</p>
+                            {% if project.status != 'pending' %}
                             <blockquote class="blockquote mb-0">
                                 <span class="score">
                                     <div class="score-wrap">
-                                        <span class="stars-active" style="width:40%">
+                                        <span class="stars-active" style="width:{{ project.get_project_rating }}%">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -91,14 +105,20 @@ CSEC-ASTU Intern - Project List
                                 </span>
                                 <footer class="blockquote-footer">Project Rating</footer>
                             </blockquote>
-                            {% if project.user == user %}
-                                {% if project.is_approved %}
+                            {% endif %}
+
+                            {% if project.user == user or user.is_staff %}
+                                {% if project.status == 'approved' %}
                                 <span class="badge badge-success">
                                     Approved
                                 </span>
+                                {% elif project.status == 'pending' %}
+                                <span class="badge badge-info">
+                                    Pending
+                                </span>
                                 {% else %}
                                 <span class="badge badge-danger">
-                                    Pending
+                                    Rejected
                                 </span>
                                 {% endif %}
                             {% endif %}

@@ -10,6 +10,9 @@ from .models import User
 
 
 def registeration(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard-index")
+
     if request.method == "POST":
         print(request.POST)
         user_form = UserRegistrationForm(request.POST)
