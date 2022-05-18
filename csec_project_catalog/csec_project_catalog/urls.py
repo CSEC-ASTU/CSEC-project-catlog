@@ -19,3 +19,5 @@ urlpatterns = [
 # For Development only
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "csec_project_catalog.views.error_404"

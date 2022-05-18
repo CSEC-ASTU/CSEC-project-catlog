@@ -6,13 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('project_catalog', '0002_alter_image_image'),
+        ("project_catalog", "0002_alter_image_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='project',
-            name='status',
-            field=models.CharField(choices=[('approved', 'approved'), ('pending', 'pending'), ('rejected', 'rejected')], default='pending', max_length=10),
+            model_name="project",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("approved", "approved"),
+                    ("pending", "pending"),
+                    ("rejected", "rejected"),
+                ],
+                default="pending",
+                max_length=10,
+            ),
         ),
     ]

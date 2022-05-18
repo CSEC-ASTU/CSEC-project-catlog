@@ -18,6 +18,7 @@ PROJECT_STATUS = (
     ("rejected", "rejected"),
 )
 
+
 class Rating(models.Model):
     """
     Rating model for storing rating of the project list
@@ -127,7 +128,8 @@ class Project(models.Model):
         related_name="pdeleter",
     )
     deleted_at = models.DateTimeField(auto_now_add=True)
-    approved_at = models.DateTimeField(auto_now_add=True)
+    approved_at = models.DateTimeField(blank=True, null=True)
+    rejected_at = models.DateTimeField(blank=True, null=True)
     approved_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -135,6 +137,14 @@ class Project(models.Model):
         blank=True,
         related_name="papprover",
     )
+    rejected_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="prejecter",
+    )
+
     rating = models.ManyToManyField(Rating, blank=True, related_name="ratingss")
     images = models.ManyToManyField(Image, blank=True, related_name="imagep")
     posted_on_tg = models.BooleanField(default=False)
@@ -179,6 +189,24 @@ class Project(models.Model):
         if self.rating.count() == 0:
             return 0
         return round(self.rating.aggregate(models.Avg("rating"))["rating__avg"], 2) * 20
+
+    @property
+    def get_approver(self):
+        """Get the approver of the project.
+
+        Returns:
+            User: approver of the project
+        """
+        return self.approved_by.get_full_name if self.approved_by else None
+
+    @property
+    def get_rejecter(self):
+        """Get the rejecter of the project.
+
+        Returns:
+            User: rejecter of the project
+        """
+        return self.rejected_by.get_full_name if self.rejected_by else None
 
 
 class Event(models.Model):

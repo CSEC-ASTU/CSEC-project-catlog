@@ -1,19 +1,18 @@
 import json
 import logging
 
+# fmt: off
 from authentication.models import User
 from companies.models import Company
-
 # import django Login Require mixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-
-# fmt: off
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from .forms import EventForm, ProjectForm, ProjectImageForm
@@ -38,8 +37,7 @@ class DashboardView(LoginRequiredMixin, ListView):
             is_deleted=0, is_approved=1
         ).count()
         kwargs["total_talents"] = User.objects.filter(is_deleted=0).count()
-        kwargs["total_companies"] = Company.objects.filter(
-            is_deleted=0).count()
+        kwargs["total_companies"] = Company.objects.filter(is_deleted=0).count()
         kwargs["recent_projects"] = Project.objects.filter(
             is_deleted=0, is_approved=1
         ).order_by("-created_at")[:5]
@@ -123,13 +121,9 @@ class AdminProjectView(LoginRequiredMixin, ListView):
         search = self.request.GET.get("search", None)
         queryset = Project.objects.filter(is_deleted=0)
         if search:
-            return (
-                queryset.filter(
-                    Q(title__icontains=search) | Q(
-                        description__icontains=search)
-                )
-                .order_by("-created_at")
-            )
+            return queryset.filter(
+                Q(title__icontains=search) | Q(description__icontains=search)
+            ).order_by("-created_at")
 
         return Project.objects.filter(is_deleted=0)
 
@@ -161,21 +155,31 @@ class ProjectApproval(DetailView):
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            return JsonResponse({"error": "You are not authorized to perform this action."})
+            return JsonResponse(
+                {"error": "You are not authorized to perform this action."}
+            )
 
         project = self.get_object()
         status = request.POST.get("status", None)
 
         if status == "approved":
+            project.approved_at = timezone.now()
+            project.approved_by = request.user
             project.is_approved = True
             project.status = "approved"
             project.save()
-            return JsonResponse({"success": "Project has been approved.", "error": False}, status=200)
+            return JsonResponse(
+                {"success": "Project has been approved.", "error": False}, status=200
+            )
         elif status == "rejected":
+            project.rejected_at = timezone.now()
+            project.rejected_by = request.user
             project.is_approved = False
             project.status = "rejected"
             project.save()
-            return JsonResponse({"success": "Project has been rejected.", "error": False}, status=200)
+            return JsonResponse(
+                {"success": "Project has been rejected.", "error": False}, status=200
+            )
         else:
             return JsonResponse({"error": "Invalid status."}, status=400)
 
@@ -196,14 +200,15 @@ class ProjectRating(DetailView):
         rating = request.POST.get("rating")
 
         if not request.user.is_authenticated:
-            return JsonResponse({"error": "You are not authorized to perform this action."}, status=400)
+            return JsonResponse(
+                {"error": "You are not authorized to perform this action."}, status=400
+            )
 
         if not rating.isdigit():
             return JsonResponse({"error": "Rating must be a number"}, status=400)
 
         if project.rating:
-            previous_rating = project.rating.filter(
-                created_by=request.user).first()
+            previous_rating = project.rating.filter(created_by=request.user).first()
             if previous_rating:
                 previous_rating.rating = rating
                 previous_rating.save()

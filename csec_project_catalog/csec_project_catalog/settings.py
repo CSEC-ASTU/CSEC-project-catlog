@@ -1,11 +1,13 @@
 import os
 from pathlib import Path
 
+# fmt: off
 # Lazy reverse URL resolving
 from django.urls import reverse_lazy
-
 # Load Environment variable
 from dotenv import load_dotenv
+
+# fmt: on
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,7 +20,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -107,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -143,3 +144,14 @@ AUTH_USER_MODEL = "authentication.User"
 LOGIN_REDIRECT_URL = reverse_lazy("dashboard-index")
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
+
+
+# Email Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
+EMAIL_TIMEOUT = 10
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
