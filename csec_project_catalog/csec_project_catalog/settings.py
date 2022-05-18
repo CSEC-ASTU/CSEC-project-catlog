@@ -76,19 +76,19 @@ WSGI_APPLICATION = "csec_project_catalog.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # Loading Database Settings from .env file
-DB_CONFIG = {"ENGINE": os.getenv("ENGINE"), "NAME": os.getenv("NAME")}
+DB_CONFIG = {"ENGINE": os.getenv("ENGINE"), "NAME": os.getenv("DB_NAME")}
 
 if DB_CONFIG["ENGINE"] and "sqlite3" not in DB_CONFIG["ENGINE"]:
-    print(os.getenv("DB_USER"), os.getenv("PASSWORD"), os.getenv("HOST"))
     DB_CONFIG["USER"] = os.getenv("DB_USER") or os.getenv("USER")
-    DB_CONFIG["PASSWORD"] = os.getenv("PASSWORD")
-    DB_CONFIG["HOST"] = os.getenv("HOST")
-    DB_CONFIG["PORT"] = os.getenv("PORT")
+    DB_CONFIG["PASSWORD"] = os.getenv("DB_PASSWORD")
+    DB_CONFIG["HOST"] = os.getenv("DB_HOST")
+    DB_CONFIG["PORT"] = os.getenv("DB_PORT")
 
 if DB_CONFIG["NAME"] == "db.sqlite3":
     DB_CONFIG["NAME"] = os.path.join(BASE_DIR, "db.sqlite3")
 
 DATABASES = {"default": DB_CONFIG}
+
 
 
 # Password validation
