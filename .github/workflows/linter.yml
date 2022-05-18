@@ -92,3 +92,8 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: "False"
           ENVIRONMENT: "test"
+          EMAIL_HOST_USER: "email@csec-astu.com" 
+          EMAIL_HOST_PASSWORD: "password"
+          EMAIL_HOST: "mail.csec-astu.com"
+          EMAIL_PORT: 465
+
